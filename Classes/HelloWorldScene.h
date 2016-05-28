@@ -15,6 +15,11 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+
+private:
+	cocos2d::Sprite *newGame;
+	cocos2d::Sprite *scores;
+	cocos2d::Sprite *exit;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

@@ -26,11 +26,43 @@ bool HelloWorld::init()
     {
         return false;
     }
-    
+
+
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	const float centerX = visibleSize.width / 2;
 
-    return true;
+
+	newGame = Sprite::create("NewGame.png");
+	newGame->setPosition(Vec2(centerX, 300));
+	addChild(newGame);
+
+	scores = Sprite::create("Scores.png");
+	scores->setPosition(Vec2(centerX, 200));
+	addChild(scores);
+
+	exit = Sprite::create("Exit.png");
+	exit->setPosition(Vec2(centerX, 100));
+	addChild(exit);
+
+
+	auto touchListener = EventListenerTouchOneByOne::create();
+	touchListener->setSwallowTouches(true);
+	touchListener->onTouchBegan = [this](Touch* touch, Event* event)
+	{
+		auto location = touch->getLocation();
+
+		if (exit->boundingBox().containsPoint(location))
+		{
+			Director::getInstance()->end();
+		}
+
+		return true;
+	};
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
+
+	return true;
 }
 
 
