@@ -1,15 +1,14 @@
-#include "HelloWorldScene.h"
 #include "GameScene.h"
 
 USING_NS_CC;
 
-Scene* HelloWorld::createScene()
+Scene* GameScene::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
 
 	// 'layer' is an autorelease object
-	auto layer = HelloWorld::create();
+	auto layer = GameScene::create();
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -19,7 +18,7 @@ Scene* HelloWorld::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool GameScene::init()
 {
 	//////////////////////////////
 	// 1. super init first
@@ -34,14 +33,6 @@ bool HelloWorld::init()
 	const float centerX = visibleSize.width / 2;
 
 
-	newGame = Sprite::create("NewGame.png");
-	newGame->setPosition(Vec2(centerX, 300));
-	addChild(newGame);
-
-	scores = Sprite::create("Scores.png");
-	scores->setPosition(Vec2(centerX, 200));
-	addChild(scores);
-
 	exit = Sprite::create("Exit.png");
 	exit->setPosition(Vec2(centerX, 100));
 	addChild(exit);
@@ -53,17 +44,9 @@ bool HelloWorld::init()
 	{
 		auto location = touch->getLocation();
 
-		if (newGame->boundingBox().containsPoint(location))
-		{
-			auto scene = GameScene::createScene();
-			Director::getInstance()->replaceScene(scene);
-			return true;
-		}
-
 		if (exit->boundingBox().containsPoint(location))
 		{
 			Director::getInstance()->end();
-			return true;
 		}
 
 		return true;
