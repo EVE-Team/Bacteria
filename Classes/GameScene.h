@@ -1,5 +1,4 @@
-#ifndef __GAME_SCENE_H__
-#define __GAME_SCENE_H__
+#pragma once
 
 #include "cocos2d.h"
 
@@ -16,5 +15,3 @@ public:
 private:
 	cocos2d::Sprite *exit;
 };
-
-#endif // __GAME_SCENE_H__

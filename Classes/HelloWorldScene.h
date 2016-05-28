@@ -1,5 +1,4 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#pragma once
 
 #include "cocos2d.h"
 
@@ -18,5 +17,3 @@ private:
 	cocos2d::Sprite *scores;
 	cocos2d::Sprite *exit;
 };
-
-#endif // __HELLOWORLD_SCENE_H__
