@@ -64,7 +64,7 @@ bool GameScene::init()
 		if (pause->boundingBox().containsPoint(location))
 		{
 			auto scene = PauseScene::createScene();
-			Director::getInstance()->replaceScene(scene);
+			Director::getInstance()->pushScene(scene);
 			return true;
 		}
 

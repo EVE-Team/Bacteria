@@ -56,13 +56,13 @@ bool PauseScene::init()
 
 		if (resume->boundingBox().containsPoint(location))
 		{
-			auto scene = GameScene::createScene();
-			Director::getInstance()->replaceScene(scene);
+			Director::getInstance()->popScene();
 			return true;
 		}
 
 		if (restart->boundingBox().containsPoint(location))
 		{
+			Director::getInstance()->popScene();
 			auto scene = GameScene::createScene();
 			Director::getInstance()->replaceScene(scene);
 			return true;
@@ -70,6 +70,7 @@ bool PauseScene::init()
 
 		if (menu->boundingBox().containsPoint(location))
 		{
+			Director::getInstance()->popScene();
 			auto scene = HelloWorld::createScene();
 			Director::getInstance()->replaceScene(scene);
 			return true;
