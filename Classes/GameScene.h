@@ -15,6 +15,10 @@ public:
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameScene);
 
+	virtual void update(float dt) override;
+	virtual void onEnter() override;
+	virtual void onExit() override;
+
 private:
 	cocos2d::Sprite *pause;
 	Player *player;

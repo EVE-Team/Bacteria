@@ -2,6 +2,7 @@
 #include "PauseScene.h"
 #include "Player.h"
 #include "Planktons.h"
+#include "Utils.h"
 
 USING_NS_CC;
 
@@ -61,10 +62,37 @@ bool GameScene::init()
 			return true;
 		}
 
+		{
+			Vec2 plMov = location - player->getPosition();
+			float dist = Utils::length(plMov);
+			float mul = 100.0 / dist;
+			plMov *= mul;
+			player->SetVel(plMov);
+		}
+
 		return true;
 	};
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 
 
 	return true;
+}
+
+void GameScene::update(float dt)
+{
+	Layer::update(dt);
+
+	player->Tick(dt);
+}
+
+void GameScene::onEnter()
+{
+	Layer::onEnter();
+	scheduleUpdate();
+}
+
+void GameScene::onExit()
+{
+	unscheduleUpdate();
+	Layer::onExit();
 }
