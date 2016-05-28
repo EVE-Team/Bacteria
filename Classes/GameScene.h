@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 
 class Player;
+class Planktons;
 
 class GameScene : public cocos2d::Layer
 {
@@ -17,4 +18,5 @@ public:
 private:
 	cocos2d::Sprite *pause;
 	Player *player;
+	Planktons *planktons;
 };

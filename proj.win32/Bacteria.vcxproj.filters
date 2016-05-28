@@ -36,6 +36,12 @@
     <ClCompile Include="..\Classes\CircleSprite.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Planktons.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plankton.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -60,6 +66,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\CircleSprite.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Planktons.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plankton.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

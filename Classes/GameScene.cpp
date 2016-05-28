@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "PauseScene.h"
 #include "Player.h"
+#include "Planktons.h"
 
 USING_NS_CC;
 
@@ -42,6 +43,9 @@ bool GameScene::init()
 	player = Player::create();
 	player->SetArea(10000);
 	addChild(player);
+
+	planktons = Planktons::create();
+	addChild(planktons);
 
 
 	auto touchListener = EventListenerTouchOneByOne::create();
