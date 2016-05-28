@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "PauseScene.h"
 
 USING_NS_CC;
 
@@ -33,9 +34,9 @@ bool GameScene::init()
 	const float centerX = visibleSize.width / 2;
 
 
-	exit = Sprite::create("Exit.png");
-	exit->setPosition(Vec2(centerX, 100));
-	addChild(exit);
+	pause = Sprite::create("button_black_pause.png");
+	pause->setPosition(Vec2(centerX, 100));
+	addChild(pause);
 
 
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -44,9 +45,11 @@ bool GameScene::init()
 	{
 		auto location = touch->getLocation();
 
-		if (exit->boundingBox().containsPoint(location))
+		if (pause->boundingBox().containsPoint(location))
 		{
-			Director::getInstance()->end();
+			auto scene = PauseScene::createScene();
+			Director::getInstance()->replaceScene(scene);
+			return true;
 		}
 
 		return true;
