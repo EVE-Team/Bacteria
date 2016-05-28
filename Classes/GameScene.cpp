@@ -35,16 +35,21 @@ bool GameScene::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	const float centerX = visibleSize.width / 2;
 
 
 	pause = Sprite::create("button_black_pause.png");
-	pause->setPosition(Vec2(centerX, 100));
+	pause->setPosition(Vec2(visibleSize) - Vec2(40, 40));
+	pause->setScale(0.6);
 	addChild(pause);
 
 	player = Player::create();
 	player->SetArea(10000);
 	addChild(player);
+
+	massText = Label::createWithTTF("Mass: " + std::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 18);
+	massText->setAnchorPoint(Vec2(0, 0.5));
+	massText->setPosition(Vec2(40, visibleSize.height - 40));
+	addChild(massText);
 
 	planktons = Planktons::create();
 	addChild(planktons);
@@ -90,6 +95,7 @@ void GameScene::update(float dt)
 		if (CircleSprite::Collide(player, *it))
 		{
 			player->SetArea(player->GetArea() + (*it)->GetArea());
+			massText->setString("Mass: " + std::to_string(player->GetArea()));
 
 			planktons->removeChild(*it, true);
 			planktons->list.erase(it);

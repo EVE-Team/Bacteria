@@ -23,4 +23,5 @@ private:
 	cocos2d::Sprite *pause;
 	Player *player;
 	Planktons *planktons;
+	cocos2d::Label *massText;
 };
