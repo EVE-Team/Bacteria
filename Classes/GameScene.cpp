@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "PauseScene.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -37,6 +38,10 @@ bool GameScene::init()
 	pause = Sprite::create("button_black_pause.png");
 	pause->setPosition(Vec2(centerX, 100));
 	addChild(pause);
+
+	player = Player::create();
+	player->SetArea(10000);
+	addChild(player);
 
 
 	auto touchListener = EventListenerTouchOneByOne::create();

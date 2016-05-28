@@ -2,6 +2,8 @@
 
 #include "cocos2d.h"
 
+class Player;
+
 class GameScene : public cocos2d::Layer
 {
 public:
@@ -14,4 +16,5 @@ public:
 
 private:
 	cocos2d::Sprite *pause;
+	Player *player;
 };
