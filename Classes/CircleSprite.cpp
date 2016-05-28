@@ -4,6 +4,12 @@
 
 USING_NS_CC;
 
+bool CircleSprite::Collide(CircleSprite *a, CircleSprite *b)
+{
+	float dist = Utils::length(a->getPosition() - b->getPosition());
+	return dist < (a->GetRadius() + b->GetRadius());
+}
+
 float CircleSprite::GetArea() const
 {
 	return M_PI * GetRadius() * GetRadius();

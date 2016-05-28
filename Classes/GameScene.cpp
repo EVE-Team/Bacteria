@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Planktons.h"
 #include "Utils.h"
+#include "Plankton.h"
 
 USING_NS_CC;
 
@@ -83,6 +84,19 @@ void GameScene::update(float dt)
 	Layer::update(dt);
 
 	player->Tick(dt);
+
+	for (auto it = planktons->list.begin(); it != planktons->list.end(); ++it)
+	{
+		if (CircleSprite::Collide(player, *it))
+		{
+			player->SetArea(player->GetArea() + (*it)->GetArea());
+
+			planktons->removeChild(*it, true);
+			planktons->list.erase(it);
+
+			break;
+		}
+	}
 }
 
 void GameScene::onEnter()

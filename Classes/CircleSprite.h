@@ -5,6 +5,8 @@
 class CircleSprite : public cocos2d::Sprite
 {
 public:
+	static bool Collide(CircleSprite *a, CircleSprite *b);
+
 	float GetArea() const;
 	void SetArea(float a);
 	void SetVel(cocos2d::Vec2 vel);

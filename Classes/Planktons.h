@@ -11,8 +11,8 @@ public:
 
 	bool init() override;
 
-private:
-	std::vector<Plankton*> list;
+	std::list<Plankton*> list;
 
+private:
 	void AddPlankton(cocos2d::Vec2 pos);
 };
