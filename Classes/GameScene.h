@@ -4,6 +4,7 @@
 
 class Player;
 class Planktons;
+class Enemies;
 
 class GameScene : public cocos2d::Layer
 {
@@ -26,4 +27,7 @@ private:
 	cocos2d::Label *massText;
 	cocos2d::Node *node;
 	cocos2d::Size visibleSize;
+	Enemies *enemies;
+
+	void EatPlankton();
 };

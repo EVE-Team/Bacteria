@@ -4,6 +4,8 @@
 #include "Planktons.h"
 #include "Utils.h"
 #include "Plankton.h"
+#include "Enemies.h"
+#include "Enemy.h"
 
 USING_NS_CC;
 
@@ -55,6 +57,9 @@ bool GameScene::init()
 	planktons = Planktons::create();
 	node->addChild(planktons);
 
+	enemies = Enemies::create();
+	node->addChild(enemies);
+
 	player = Player::create();
 	player->SetArea(5000);
 	node->addChild(player);
@@ -94,6 +99,7 @@ bool GameScene::init()
 			player->Push(plMov);
 
 			player->SetArea(player->GetArea() - Utils::planktonArea);
+			massText->setString("Mass: " + std::to_string(player->GetArea()));
 			planktons->AddPlankton(player->getPosition());
 			planktons->list.back()->Push(plMov * -0.05);
 		}
@@ -106,21 +112,14 @@ bool GameScene::init()
 	return true;
 }
 
-void GameScene::update(float dt)
+void GameScene::EatPlankton()
 {
-	Layer::update(dt);
-
-	player->Tick(dt);
-	planktons->Tick(dt);
-
 	for (auto it = planktons->list.begin(); it != planktons->list.end(); ++it)
 	{
 		if (!(*it)->Vulnerable())
 			continue;
 
-		float dist = Utils::length(player->getPosition() - (*it)->getPosition());
-
-		if (dist < player->GetRadius())
+		if (Utils::length(player->getPosition() - (*it)->getPosition()) < player->GetRadius())
 		{
 			player->SetArea(player->GetArea() + (*it)->GetArea());
 			massText->setString("Mass: " + std::to_string(player->GetArea()));
@@ -128,9 +127,34 @@ void GameScene::update(float dt)
 			planktons->removeChild(*it, true);
 			planktons->list.erase(it);
 
-			break;
+			return;
+		}
+		else
+		{
+			for (auto enemy : enemies->list)
+			{
+				if (Utils::length(enemy->getPosition() - (*it)->getPosition()) < enemy->GetRadius())
+				{
+					enemy->SetArea(enemy->GetArea() + (*it)->GetArea());
+
+					planktons->removeChild(*it, true);
+					planktons->list.erase(it);
+
+					return;
+				}
+			}
 		}
 	}
+}
+
+void GameScene::update(float dt)
+{
+	Layer::update(dt);
+
+	player->Tick(dt);
+	planktons->Tick(dt);
+
+	EatPlankton();
 
 	{
 		Rect camRect(

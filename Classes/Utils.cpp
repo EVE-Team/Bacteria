@@ -27,6 +27,6 @@ Vec2 Utils::RandVec2()
 	return Vec2(Rand(fieldSize.width), Rand(fieldSize.height));
 }
 
-const Size Utils::fieldSize = Size(1280, 1280);
+const Size Utils::fieldSize = Size(1400, 1400);
 
 const float Utils::planktonArea = 750;
