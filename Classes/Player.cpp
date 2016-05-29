@@ -6,7 +6,7 @@ USING_NS_CC;
 Player* Player::create()
 {
 	Player *sprite = new (std::nothrow) Player();
-	if (sprite && sprite->initWithFile("Bacteria.png"))
+	if (sprite && sprite->initWithFile("Player.png"))
 	{
 		sprite->autorelease();
 		sprite->picSize = 1.0 * sprite->getContentSize().width / 2;

@@ -18,7 +18,7 @@ Enemies* Enemies::create(GameScene *gameScene)
 
 bool Enemies::init(GameScene *gameScene)
 {
-	if (!SpriteBatchNode::initWithFile("Bacteria.png"))
+	if (!SpriteBatchNode::initWithFile("Enemy.png"))
 	{
 		return false;
 	}

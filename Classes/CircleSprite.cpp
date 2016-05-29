@@ -43,7 +43,7 @@ void CircleSprite::Tick(float dt)
 		setPositionY(getPositionY() - (GetRadius() - (Utils::fieldSize.height - getPosition().y)));
 
 	float velAmp = Utils::length(vel);
-	float newVelAmp = velAmp - 50 * dt;
+	float newVelAmp = velAmp - 10 * dt;
 
 	if (newVelAmp > 0)
 	{

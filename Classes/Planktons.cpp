@@ -18,7 +18,7 @@ Planktons* Planktons::create()
 
 bool Planktons::init()
 {
-	if (!SpriteBatchNode::initWithFile("Bacteria.png"))
+	if (!SpriteBatchNode::initWithFile("Plankton.png"))
 	{
 		return false;
 	}
