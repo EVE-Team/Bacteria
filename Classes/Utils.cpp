@@ -17,4 +17,14 @@ float Utils::length(Vec2 v)
 	return length(Vec2(), v);
 }
 
+int Utils::Rand(int max)
+{
+	return rand() % max;
+}
+
+Vec2 Utils::RandVec2()
+{
+	return Vec2(Rand(fieldSize.width), Rand(fieldSize.height));
+}
+
 const Size Utils::fieldSize = Size(1920, 1080);

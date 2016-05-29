@@ -1,5 +1,6 @@
 #include "Planktons.h"
 #include "Plankton.h"
+#include "Utils.h"
 
 USING_NS_CC;
 
@@ -22,10 +23,10 @@ bool Planktons::init()
 		return false;
 	}
 
-	AddPlankton(Vec2(200, 200));
-	AddPlankton(Vec2(300, 200));
-	AddPlankton(Vec2(400, 200));
-	AddPlankton(Vec2(500, 200));
+	for (int i = 0; i < 50; ++i)
+	{
+		AddPlankton(Utils::RandVec2());
+	}
 
 	return true;
 }
