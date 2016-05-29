@@ -11,7 +11,7 @@ public:
 	void SetRadius(float r);
 	float GetArea() const;
 	void SetArea(float a);
-	void SetVel(cocos2d::Vec2 vel);
+	void Push(cocos2d::Vec2 force);
 	virtual void Tick(float dt);
 
 protected:

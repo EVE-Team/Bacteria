@@ -20,9 +20,9 @@ void CircleSprite::SetArea(float a)
 	SetRadius(sqrt(a / M_PI));
 }
 
-void CircleSprite::SetVel(Vec2 vel)
+void CircleSprite::Push(Vec2 force)
 {
-	this->vel = vel;
+	this->vel = force / GetArea();
 }
 
 void CircleSprite::Tick(float dt)

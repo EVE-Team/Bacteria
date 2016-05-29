@@ -89,13 +89,13 @@ bool GameScene::init()
 			auto nodeLocation = location - node->getPosition();
 			Vec2 plMov = nodeLocation - player->getPosition();
 			float dist = Utils::length(plMov);
-			float mul = 1500000.0 / dist / player->GetArea();
+			float mul = 1500000.0 / dist;
 			plMov *= mul;
-			player->SetVel(plMov);
+			player->Push(plMov);
 
 			player->SetArea(player->GetArea() - Utils::planktonArea);
 			planktons->AddPlankton(player->getPosition());
-			planktons->list.back()->SetVel(plMov * -1);
+			planktons->list.back()->Push(plMov * -0.05);
 		}
 
 		return true;
