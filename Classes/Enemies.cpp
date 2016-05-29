@@ -25,7 +25,7 @@ bool Enemies::init(GameScene *gameScene)
 
 	this->gameScene = gameScene;
 
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < 15; ++i)
 	{
 		AddEnemy(Utils::RandVec2());
 	}

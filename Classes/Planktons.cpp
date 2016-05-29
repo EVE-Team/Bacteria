@@ -23,7 +23,7 @@ bool Planktons::init()
 		return false;
 	}
 
-	for (int i = 0; i < 50; ++i)
+	for (int i = 0; i < 250; ++i)
 	{
 		AddPlankton(Utils::RandVec2());
 	}

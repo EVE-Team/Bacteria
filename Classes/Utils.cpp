@@ -27,8 +27,10 @@ Vec2 Utils::RandVec2()
 	return Vec2(Rand(fieldSize.width), Rand(fieldSize.height));
 }
 
-const Size Utils::fieldSize = Size(1400, 1400);
-const float Utils::planktonArea = 750;
+const Size Utils::fieldSize = Size(2000, 2000);
+const float Utils::planktonArea = 500;
+const float Utils::bacteriaPushForce = 2000000;
+const float Utils::planktonPushForceMul = -0.1;
 
 Utils::PolarVec2 Utils::LinearToPolar(Vec2 lin)
 {

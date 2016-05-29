@@ -11,5 +11,5 @@ public:
 	bool Vulnerable() const;
 
 private:
-	float invulnerability = 1.0;
+	float invulnerability = 0.5;
 };

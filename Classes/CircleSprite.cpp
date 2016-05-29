@@ -22,7 +22,7 @@ void CircleSprite::SetArea(float a)
 
 void CircleSprite::Push(Vec2 force)
 {
-	vel = force / GetArea();
+	vel += force / GetArea();
 }
 
 void CircleSprite::Tick(float dt)
@@ -33,17 +33,29 @@ void CircleSprite::Tick(float dt)
 	setPosition(getPosition() + vel * dt);
 
 	if (getPosition().x < GetRadius())
+	{
 		setPositionX(GetRadius());
+		vel.x = 0;
+	}
 	else if (Utils::fieldSize.width - getPosition().x < GetRadius())
+	{
 		setPositionX(getPositionX() - (GetRadius() - (Utils::fieldSize.width - getPosition().x)));
+		vel.x = 0;
+	}
 
 	if (getPosition().y < GetRadius())
+	{
 		setPositionY(GetRadius());
+		vel.y = 0;
+	}
 	else if (Utils::fieldSize.height - getPosition().y < GetRadius())
+	{
 		setPositionY(getPositionY() - (GetRadius() - (Utils::fieldSize.height - getPosition().y)));
+		vel.y = 0;
+	}
 
 	float velAmp = Utils::length(vel);
-	float newVelAmp = velAmp - 10 * dt;
+	float newVelAmp = velAmp - 500 * dt;
 
 	if (newVelAmp > 0)
 	{

@@ -62,7 +62,7 @@ bool GameScene::init()
 
 	player = Player::create();
 	player->SetArea(5000);
-	player->setPosition(Vec2(visibleSize) / 2);
+	player->setPosition(Vec2(Utils::fieldSize) / 2);
 	node->addChild(player);
 
 	massText = Label::createWithTTF("Mass: " + Utils::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 24);
@@ -93,13 +93,13 @@ bool GameScene::init()
 		if (player->GetArea() >= 2 * Utils::planktonArea)
 		{
 			auto nodeLocation = location - node->getPosition();
-			Vec2 plMov = Utils::ResizeVec2(nodeLocation - player->getPosition(), 1500000.0);
+			Vec2 plMov = Utils::ResizeVec2(nodeLocation - player->getPosition(), Utils::bacteriaPushForce);
 			player->Push(plMov);
 
 			player->SetArea(player->GetArea() - Utils::planktonArea);
 			massText->setString("Mass: " + Utils::to_string(player->GetArea()));
 			planktons->AddPlankton(player->getPosition());
-			planktons->list.back()->Push(plMov * -0.05);
+			planktons->list.back()->Push(plMov * Utils::planktonPushForceMul);
 		}
 		else
 		{

@@ -25,39 +25,59 @@ void Enemy::Tick(float dt)
 {
 	CircleSprite::Tick(dt);
 
-	static const float initForce = 1500000.0;
+	reload -= dt;
+	if (reload < 0)
+		reload = 0;
 
-	if (GetArea() < 2 * Utils::planktonArea)
+	if (reload > 0)
 		return;
 
-	if (Utils::length(GetVelocity()) > 0.5 * (initForce / GetArea()))
+	if (GetArea() < 2 * Utils::planktonArea)
 		return;
 
 	Player *player = gameScene->player;
 	float plDist = Utils::length(player->getPosition(), getPosition());
 
-	if (plDist < 250)
+	if (plDist < 300)
 	{
-		Vec2 movTw = Utils::ResizeVec2(player->getPosition() - getPosition(), initForce);
+		Vec2 movTw = Utils::ResizeVec2(player->getPosition() - getPosition(), Utils::bacteriaPushForce);
 		if (player->GetArea() > GetArea())
 			movTw *= -1;
 		Push(movTw);
 
+		reload = RELOAD_TIME_MUL / GetArea();
+
 		SetArea(GetArea() - Utils::planktonArea);
 		gameScene->planktons->AddPlankton(getPosition());
-		gameScene->planktons->list.back()->Push(movTw * -0.05);
+		gameScene->planktons->list.back()->Push(movTw * Utils::planktonPushForceMul);
 	}
 	else
 	{
+		if (Utils::length(GetVelocity()) > 0.4 * (Utils::bacteriaPushForce / GetArea()))
+			return;
+
 		auto planktonsList = &(gameScene->planktons->list);
 		auto minIt = std::min_element(planktonsList->begin(), planktonsList->end(),
-			[this](Plankton *a, Plankton *b){ return Utils::length(getPosition() - a->getPosition()) < Utils::length(getPosition() - b->getPosition()); });
+			[this](Plankton *a, Plankton *b)
+		{
+			bool fairChoice = Utils::length(getPosition() - a->getPosition()) < Utils::length(getPosition() - b->getPosition());
 
-		Vec2 mov = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), initForce);
+			if (!b->Vulnerable())
+				return a->Vulnerable() ? true : fairChoice;
+			else
+				return a->Vulnerable() ? fairChoice : false;
+
+		});
+
+		Vec2 mov = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), Utils::bacteriaPushForce);
 		Push(mov);
+
+		reload = RELOAD_TIME_MUL / GetArea();
 
 		SetArea(GetArea() - Utils::planktonArea);
 		gameScene->planktons->AddPlankton(getPosition());
-		gameScene->planktons->list.back()->Push(mov * -0.05);
+		gameScene->planktons->list.back()->Push(mov * Utils::planktonPushForceMul);
 	}
 }
+
+const float Enemy::RELOAD_TIME_MUL = 2000;
