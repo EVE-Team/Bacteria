@@ -30,4 +30,6 @@ private:
 	Enemies *enemies;
 
 	void EatPlankton();
+	void EnemyPlayerCollision();
+	void GameOver(std::string const& reason);
 };

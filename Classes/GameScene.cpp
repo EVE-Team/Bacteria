@@ -6,6 +6,7 @@
 #include "Plankton.h"
 #include "Enemies.h"
 #include "Enemy.h"
+#include "HelloWorldScene.h"
 
 USING_NS_CC;
 
@@ -103,6 +104,10 @@ bool GameScene::init()
 			planktons->AddPlankton(player->getPosition());
 			planktons->list.back()->Push(plMov * -0.05);
 		}
+		else
+		{
+			GameOver("You've lost too much mass");
+		}
 
 		return true;
 	};
@@ -147,6 +152,29 @@ void GameScene::EatPlankton()
 	}
 }
 
+void GameScene::EnemyPlayerCollision()
+{
+	for (auto it = enemies->list.begin(); it != enemies->list.end(); ++it)
+	{
+		float dist = Utils::length(player->getPosition() - (*it)->getPosition());
+
+		if (dist < player->GetRadius())
+		{
+			player->SetArea(player->GetArea() + (*it)->GetArea());
+			massText->setString("Mass: " + std::to_string(player->GetArea()));
+
+			enemies->removeChild(*it, true);
+			enemies->list.erase(it);
+
+			return;
+		}
+		else if (dist < (*it)->GetRadius())
+		{
+			GameOver("You've been eaten");
+		}
+	}
+}
+
 void GameScene::update(float dt)
 {
 	Layer::update(dt);
@@ -155,6 +183,7 @@ void GameScene::update(float dt)
 	planktons->Tick(dt);
 
 	EatPlankton();
+	EnemyPlayerCollision();
 
 	{
 		Rect camRect(
@@ -186,4 +215,10 @@ void GameScene::onExit()
 {
 	unscheduleUpdate();
 	Layer::onExit();
+}
+
+void GameScene::GameOver(std::string const& reason)
+{
+	auto scene = HelloWorld::createScene();
+	Director::getInstance()->replaceScene(scene);
 }
