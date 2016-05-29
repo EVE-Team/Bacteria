@@ -56,7 +56,7 @@ bool GameScene::init()
 	node->addChild(planktons);
 
 	player = Player::create();
-	player->SetArea(10000);
+	player->SetArea(5000);
 	node->addChild(player);
 
 	massText = Label::createWithTTF("Mass: " + std::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 24);
@@ -84,13 +84,18 @@ bool GameScene::init()
 			return true;
 		}
 
+		if (player->GetArea() >= 2 * Utils::planktonArea)
 		{
 			auto nodeLocation = location - node->getPosition();
 			Vec2 plMov = nodeLocation - player->getPosition();
 			float dist = Utils::length(plMov);
-			float mul = 100.0 / dist;
+			float mul = 1500000.0 / dist / player->GetArea();
 			plMov *= mul;
 			player->SetVel(plMov);
+
+			player->SetArea(player->GetArea() - Utils::planktonArea);
+			planktons->AddPlankton(player->getPosition());
+			planktons->list.back()->SetVel(plMov * -1);
 		}
 
 		return true;
@@ -106,9 +111,13 @@ void GameScene::update(float dt)
 	Layer::update(dt);
 
 	player->Tick(dt);
+	planktons->Tick(dt);
 
 	for (auto it = planktons->list.begin(); it != planktons->list.end(); ++it)
 	{
+		if (!(*it)->Vulnerable())
+			continue;
+
 		float dist = Utils::length(player->getPosition() - (*it)->getPosition());
 
 		if (dist < player->GetRadius())

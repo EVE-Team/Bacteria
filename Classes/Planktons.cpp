@@ -31,11 +31,19 @@ bool Planktons::init()
 	return true;
 }
 
+void Planktons::Tick(float dt)
+{
+	for (auto p : list)
+	{
+		p->Tick(dt);
+	}
+}
+
 void Planktons::AddPlankton(Vec2 pos)
 {
 	auto p = Plankton::create(getTexture());
 	p->setPosition(pos);
-	p->SetArea(1500);
+	p->SetArea(Utils::planktonArea);
 	list.push_back(p);
 	addChild(p);
 }

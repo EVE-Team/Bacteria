@@ -12,7 +12,7 @@ public:
 	float GetArea() const;
 	void SetArea(float a);
 	void SetVel(cocos2d::Vec2 vel);
-	void Tick(float dt);
+	virtual void Tick(float dt);
 
 protected:
 	float picSize;

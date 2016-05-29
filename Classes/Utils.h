@@ -12,4 +12,5 @@ public:
 	static cocos2d::Vec2 RandVec2();
 
 	static const cocos2d::Size fieldSize;
+	static const float planktonArea;
 };

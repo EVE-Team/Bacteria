@@ -10,9 +10,8 @@ public:
 	static Planktons* create();
 
 	bool init() override;
+	void Tick(float dt);
+	void AddPlankton(cocos2d::Vec2 pos);
 
 	std::list<Plankton*> list;
-
-private:
-	void AddPlankton(cocos2d::Vec2 pos);
 };

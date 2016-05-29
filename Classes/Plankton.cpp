@@ -14,3 +14,17 @@ Plankton* Plankton::create(Texture2D *texture)
 	CC_SAFE_DELETE(sprite);
 	return nullptr;
 }
+
+void Plankton::Tick(float dt)
+{
+	CircleSprite::Tick(dt);
+
+	invulnerability -= dt;
+	if (invulnerability < 0)
+		invulnerability = 0;
+}
+
+bool Plankton::Vulnerable() const
+{
+	return invulnerability == 0;
+}
