@@ -22,7 +22,7 @@ void CircleSprite::SetArea(float a)
 
 void CircleSprite::Push(Vec2 force)
 {
-	this->vel = force / GetArea();
+	vel = force / GetArea();
 }
 
 void CircleSprite::Tick(float dt)
@@ -54,6 +54,11 @@ void CircleSprite::Tick(float dt)
 	{
 		vel = Vec2();
 	}
+}
+
+Vec2 CircleSprite::GetVelocity() const
+{
+	return vel;
 }
 
 float CircleSprite::GetRadius() const

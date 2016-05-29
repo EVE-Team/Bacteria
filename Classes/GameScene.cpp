@@ -58,7 +58,7 @@ bool GameScene::init()
 	planktons = Planktons::create();
 	node->addChild(planktons);
 
-	enemies = Enemies::create();
+	enemies = Enemies::create(this);
 	node->addChild(enemies);
 
 	player = Player::create();
@@ -93,10 +93,7 @@ bool GameScene::init()
 		if (player->GetArea() >= 2 * Utils::planktonArea)
 		{
 			auto nodeLocation = location - node->getPosition();
-			Vec2 plMov = nodeLocation - player->getPosition();
-			float dist = Utils::length(plMov);
-			float mul = 1500000.0 / dist;
-			plMov *= mul;
+			Vec2 plMov = Utils::ResizeVec2(nodeLocation - player->getPosition(), 1500000.0);
 			player->Push(plMov);
 
 			player->SetArea(player->GetArea() - Utils::planktonArea);
@@ -181,6 +178,7 @@ void GameScene::update(float dt)
 
 	player->Tick(dt);
 	planktons->Tick(dt);
+	enemies->Tick(dt);
 
 	EatPlankton();
 	EnemyPlayerCollision();

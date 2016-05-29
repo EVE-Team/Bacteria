@@ -28,5 +28,46 @@ Vec2 Utils::RandVec2()
 }
 
 const Size Utils::fieldSize = Size(1400, 1400);
-
 const float Utils::planktonArea = 750;
+
+Utils::PolarVec2 Utils::LinearToPolar(Vec2 lin)
+{
+	PolarVec2 result;
+
+	if (lin == Vec2())
+	{
+		result.angle = 0;
+		result.dist = 0;
+		return result;
+	}
+
+	result.dist = Utils::length(lin);
+
+	if (lin.x == 0)
+	{
+		if (lin.y > 0)
+			result.angle = M_PI / 2;
+		else
+			result.angle = -M_PI / 2;
+	}
+	else
+	{
+		result.angle = atan(lin.y / lin.x);
+		if (lin.x < 0)
+			result.angle += M_PI;
+	}
+
+	return result;
+}
+
+Vec2 Utils::PolarToLinear(PolarVec2 pol)
+{
+	return Vec2(pol.dist * cos(pol.angle), pol.dist * sin(pol.angle));
+}
+
+Vec2 Utils::ResizeVec2(Vec2 vec, float len)
+{
+	PolarVec2 pv = LinearToPolar(vec);
+	pv.dist = len;
+	return PolarToLinear(pv);
+}

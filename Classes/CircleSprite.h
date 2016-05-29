@@ -13,6 +13,7 @@ public:
 	void SetArea(float a);
 	void Push(cocos2d::Vec2 force);
 	virtual void Tick(float dt);
+	cocos2d::Vec2 GetVelocity() const;
 
 protected:
 	float picSize;

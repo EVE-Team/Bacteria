@@ -13,4 +13,14 @@ public:
 
 	static const cocos2d::Size fieldSize;
 	static const float planktonArea;
+
+	struct PolarVec2
+	{
+		float dist;
+		float angle;
+	};
+
+	static PolarVec2 LinearToPolar(cocos2d::Vec2 lin);
+	static cocos2d::Vec2 PolarToLinear(PolarVec2 pol);
+	static cocos2d::Vec2 ResizeVec2(cocos2d::Vec2 vec, float len);
 };

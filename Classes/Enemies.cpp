@@ -4,10 +4,10 @@
 
 USING_NS_CC;
 
-Enemies* Enemies::create()
+Enemies* Enemies::create(GameScene *gameScene)
 {
 	Enemies *result = new (std::nothrow) Enemies();
-	if (result && result->init())
+	if (result && result->init(gameScene))
 	{
 		result->autorelease();
 		return result;
@@ -16,12 +16,14 @@ Enemies* Enemies::create()
 	return nullptr;
 }
 
-bool Enemies::init()
+bool Enemies::init(GameScene *gameScene)
 {
 	if (!SpriteBatchNode::initWithFile("Bacteria.png"))
 	{
 		return false;
 	}
+
+	this->gameScene = gameScene;
 
 	for (int i = 0; i < 5; ++i)
 	{
@@ -31,9 +33,17 @@ bool Enemies::init()
 	return true;
 }
 
+void Enemies::Tick(float dt)
+{
+	for (auto enemy : list)
+	{
+		enemy->Tick(dt);
+	}
+}
+
 void Enemies::AddEnemy(Vec2 pos)
 {
-	auto p = Enemy::create(getTexture());
+	auto p = Enemy::create(gameScene, getTexture());
 	p->setPosition(pos);
 	p->SetArea(5000);
 	list.push_back(p);
