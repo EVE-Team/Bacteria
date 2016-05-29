@@ -59,7 +59,8 @@ bool GameScene::init()
 	player->SetArea(10000);
 	node->addChild(player);
 
-	massText = Label::createWithTTF("Mass: " + std::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 18);
+	massText = Label::createWithTTF("Mass: " + std::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 24);
+	massText->setColor(Color3B(0, 0, 0));
 	massText->setAnchorPoint(Vec2(0, 0.5));
 	massText->setPosition(Vec2(40, visibleSize.height - 40));
 	addChild(massText);
