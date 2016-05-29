@@ -24,4 +24,7 @@ private:
 	Player *player;
 	Planktons *planktons;
 	cocos2d::Label *massText;
+	cocos2d::Size fieldSize;
+	cocos2d::Size camSize;
+	cocos2d::Node *node;
 };

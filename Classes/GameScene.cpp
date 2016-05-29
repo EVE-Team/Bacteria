@@ -37,6 +37,10 @@ bool GameScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
+	node = Node::create();
+	node->setAnchorPoint(Vec2());
+	addChild(node);
+
 	pause = Sprite::create("button_black_pause.png");
 	pause->setPosition(Vec2(visibleSize) - Vec2(40, 40));
 	pause->setScale(0.6);
@@ -44,7 +48,7 @@ bool GameScene::init()
 
 	player = Player::create();
 	player->SetArea(10000);
-	addChild(player);
+	node->addChild(player);
 
 	massText = Label::createWithTTF("Mass: " + std::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 18);
 	massText->setAnchorPoint(Vec2(0, 0.5));
@@ -52,7 +56,10 @@ bool GameScene::init()
 	addChild(massText);
 
 	planktons = Planktons::create();
-	addChild(planktons);
+	node->addChild(planktons);
+
+	fieldSize = Size(1920, 1080);
+	camSize = Size(800, 480);
 
 
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -69,7 +76,8 @@ bool GameScene::init()
 		}
 
 		{
-			Vec2 plMov = location - player->getPosition();
+			auto nodeLocation = location - node->getPosition();
+			Vec2 plMov = nodeLocation - player->getPosition();
 			float dist = Utils::length(plMov);
 			float mul = 100.0 / dist;
 			plMov *= mul;
@@ -102,6 +110,25 @@ void GameScene::update(float dt)
 
 			break;
 		}
+	}
+
+	{
+		Rect camRect(
+			Vec2(player->getPosition().x - camSize.width / 2, player->getPosition().y - camSize.height / 2),
+			camSize
+		);
+
+		if (camRect.getMinX() < 0)
+			camRect.origin.x = 0;
+		else if (camRect.getMaxX() > fieldSize.width)
+			camRect.origin.x -= (camRect.getMaxX() - fieldSize.width);
+
+		if (camRect.getMinY() < 0)
+			camRect.origin.y = 0;
+		else if (camRect.getMaxY() > fieldSize.height)
+			camRect.origin.y -= (camRect.getMaxY() - fieldSize.height);
+
+		node->setPosition(camRect.origin * -1);
 	}
 }
 
