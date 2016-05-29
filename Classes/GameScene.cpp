@@ -33,10 +33,8 @@ bool GameScene::init()
 	}
 
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
+	visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	fieldSize = Size(1920, 1080);
-	camSize = visibleSize;
 
 
 	node = Node::create();
@@ -50,7 +48,7 @@ bool GameScene::init()
 	tp.wrapS = GL_REPEAT;
 	tp.wrapT = GL_REPEAT;
 	background->getTexture()->setTexParameters(tp);
-	background->setTextureRect(Rect(Vec2(), fieldSize));
+	background->setTextureRect(Rect(Vec2(), Utils::fieldSize));
 	background->setAnchorPoint(Vec2());
 	node->addChild(background);
 
@@ -124,19 +122,19 @@ void GameScene::update(float dt)
 
 	{
 		Rect camRect(
-			Vec2(player->getPosition().x - camSize.width / 2, player->getPosition().y - camSize.height / 2),
-			camSize
+			Vec2(player->getPosition().x - visibleSize.width / 2, player->getPosition().y - visibleSize.height / 2),
+			visibleSize
 		);
 
 		if (camRect.getMinX() < 0)
 			camRect.origin.x = 0;
-		else if (camRect.getMaxX() > fieldSize.width)
-			camRect.origin.x -= (camRect.getMaxX() - fieldSize.width);
+		else if (camRect.getMaxX() > Utils::fieldSize.width)
+			camRect.origin.x -= (camRect.getMaxX() - Utils::fieldSize.width);
 
 		if (camRect.getMinY() < 0)
 			camRect.origin.y = 0;
-		else if (camRect.getMaxY() > fieldSize.height)
-			camRect.origin.y -= (camRect.getMaxY() - fieldSize.height);
+		else if (camRect.getMaxY() > Utils::fieldSize.height)
+			camRect.origin.y -= (camRect.getMaxY() - Utils::fieldSize.height);
 
 		node->setPosition(camRect.origin * -1);
 	}

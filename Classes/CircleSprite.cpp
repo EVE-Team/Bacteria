@@ -32,6 +32,16 @@ void CircleSprite::Tick(float dt)
 
 	setPosition(getPosition() + vel * dt);
 
+	if (getPosition().x < GetRadius())
+		setPositionX(GetRadius());
+	else if (Utils::fieldSize.width - getPosition().x < GetRadius())
+		setPositionX(getPositionX() - (GetRadius() - (Utils::fieldSize.width - getPosition().x)));
+
+	if (getPosition().y < GetRadius())
+		setPositionY(GetRadius());
+	else if (Utils::fieldSize.height - getPosition().y < GetRadius())
+		setPositionY(getPositionY() - (GetRadius() - (Utils::fieldSize.height - getPosition().y)));
+
 	float velAmp = Utils::length(vel);
 	float newVelAmp = velAmp - 50 * dt;
 

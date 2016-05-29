@@ -16,3 +16,5 @@ float Utils::length(Vec2 v)
 {
 	return length(Vec2(), v);
 }
+
+const Size Utils::fieldSize = Size(1920, 1080);
