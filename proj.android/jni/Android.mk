@@ -12,9 +12,11 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp \
-                   ../../Classes/GameScene.cpp \
                    ../../Classes/CircleSprite.cpp \
+                   ../../Classes/Enemies.cpp \
+                   ../../Classes/Enemy.cpp \
+                   ../../Classes/GameScene.cpp \
+                   ../../Classes/HelloWorldScene.cpp \
                    ../../Classes/PauseScene.cpp \
                    ../../Classes/Plankton.cpp \
                    ../../Classes/Planktons.cpp \

@@ -23,4 +23,12 @@ public:
 	static PolarVec2 LinearToPolar(cocos2d::Vec2 lin);
 	static cocos2d::Vec2 PolarToLinear(PolarVec2 pol);
 	static cocos2d::Vec2 ResizeVec2(cocos2d::Vec2 vec, float len);
+
+	template <typename T>
+	static std::string to_string(T value)
+	{
+		std::ostringstream os;
+		os << value;
+		return os.str();
+	}
 };

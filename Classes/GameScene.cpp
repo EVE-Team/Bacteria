@@ -64,7 +64,7 @@ bool GameScene::init()
 	player->SetArea(5000);
 	node->addChild(player);
 
-	massText = Label::createWithTTF("Mass: " + std::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 24);
+	massText = Label::createWithTTF("Mass: " + Utils::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 24);
 	massText->setColor(Color3B(0, 0, 0));
 	massText->setAnchorPoint(Vec2(0, 0.5));
 	massText->setPosition(Vec2(40, visibleSize.height - 40));
@@ -96,7 +96,7 @@ bool GameScene::init()
 			player->Push(plMov);
 
 			player->SetArea(player->GetArea() - Utils::planktonArea);
-			massText->setString("Mass: " + std::to_string(player->GetArea()));
+			massText->setString("Mass: " + Utils::to_string(player->GetArea()));
 			planktons->AddPlankton(player->getPosition());
 			planktons->list.back()->Push(plMov * -0.05);
 		}
@@ -123,7 +123,7 @@ void GameScene::EatPlankton()
 		if (Utils::length(player->getPosition() - (*it)->getPosition()) < player->GetRadius())
 		{
 			player->SetArea(player->GetArea() + (*it)->GetArea());
-			massText->setString("Mass: " + std::to_string(player->GetArea()));
+			massText->setString("Mass: " + Utils::to_string(player->GetArea()));
 
 			planktons->removeChild(*it, true);
 			planktons->list.erase(it);
@@ -160,7 +160,7 @@ void GameScene::EnemyPlayerCollision()
 				GameOver("All enemies are defeated");
 
 			player->SetArea(player->GetArea() + (*it)->GetArea());
-			massText->setString("Mass: " + std::to_string(player->GetArea()));
+			massText->setString("Mass: " + Utils::to_string(player->GetArea()));
 
 			enemies->removeChild(*it, true);
 			enemies->list.erase(it);
