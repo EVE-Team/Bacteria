@@ -157,6 +157,9 @@ void GameScene::EnemyPlayerCollision()
 
 		if (dist < player->GetRadius())
 		{
+			if (enemies->list.size() == 1)
+				GameOver("All enemies are defeated");
+
 			player->SetArea(player->GetArea() + (*it)->GetArea());
 			massText->setString("Mass: " + std::to_string(player->GetArea()));
 

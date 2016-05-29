@@ -49,5 +49,15 @@ void Enemy::Tick(float dt)
 	}
 	else
 	{
+		auto planktonsList = &(gameScene->planktons->list);
+		auto minIt = std::min_element(planktonsList->begin(), planktonsList->end(),
+			[this](Plankton *a, Plankton *b){ return Utils::length(getPosition() - a->getPosition()) < Utils::length(getPosition() - b->getPosition()); });
+
+		Vec2 mov = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), initForce);
+		Push(mov);
+
+		SetArea(GetArea() - Utils::planktonArea);
+		gameScene->planktons->AddPlankton(getPosition());
+		gameScene->planktons->list.back()->Push(mov * -0.05);
 	}
 }
