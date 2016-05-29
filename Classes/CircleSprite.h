@@ -7,6 +7,8 @@ class CircleSprite : public cocos2d::Sprite
 public:
 	static bool Collide(CircleSprite *a, CircleSprite *b);
 
+	float GetRadius() const;
+	void SetRadius(float r);
 	float GetArea() const;
 	void SetArea(float a);
 	void SetVel(cocos2d::Vec2 vel);
@@ -17,7 +19,4 @@ protected:
 
 private:
 	cocos2d::Vec2 vel;
-
-	float GetRadius() const;
-	void SetRadius(float r);
 };

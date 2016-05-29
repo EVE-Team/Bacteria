@@ -108,7 +108,9 @@ void GameScene::update(float dt)
 
 	for (auto it = planktons->list.begin(); it != planktons->list.end(); ++it)
 	{
-		if (CircleSprite::Collide(player, *it))
+		float dist = Utils::length(player->getPosition() - (*it)->getPosition());
+
+		if (dist < player->GetRadius())
 		{
 			player->SetArea(player->GetArea() + (*it)->GetArea());
 			massText->setString("Mass: " + std::to_string(player->GetArea()));
