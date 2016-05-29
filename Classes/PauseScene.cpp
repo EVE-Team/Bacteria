@@ -4,13 +4,13 @@
 
 USING_NS_CC;
 
-Scene* PauseScene::createScene()
+Scene* PauseScene::createScene(std::string const& label, bool resumeAllowed)
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
 
 	// 'layer' is an autorelease object
-	auto layer = PauseScene::create();
+	auto layer = PauseScene::create(label, resumeAllowed);
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -19,8 +19,24 @@ Scene* PauseScene::createScene()
 	return scene;
 }
 
+PauseScene* PauseScene::create(std::string const& label, bool resumeAllowed)
+{
+	PauseScene *pRet = new(std::nothrow) PauseScene();
+	if (pRet && pRet->init(label, resumeAllowed))
+	{
+		pRet->autorelease();
+		return pRet;
+	}
+	else
+	{
+		delete pRet;
+		pRet = nullptr;
+		return nullptr;
+	}
+}
+
 // on "init" you need to initialize your instance
-bool PauseScene::init()
+bool PauseScene::init(std::string const& label, bool resumeAllowed)
 {
 	//////////////////////////////
 	// 1. super init first
@@ -35,9 +51,17 @@ bool PauseScene::init()
 	const float centerX = visibleSize.width / 2;
 
 
-	resume = Sprite::create("Resume.png");
-	resume->setPosition(Vec2(centerX, 300));
-	addChild(resume);
+	auto labelNode = Label::createWithTTF(label, "fonts/Marker Felt.ttf", 24);
+	labelNode->setAnchorPoint(Vec2(0, 0.5));
+	labelNode->setPosition(Vec2(40, visibleSize.height - 40));
+	addChild(labelNode);
+
+	if (resumeAllowed)
+	{
+		resume = Sprite::create("Resume.png");
+		resume->setPosition(Vec2(centerX, 300));
+		addChild(resume);
+	}
 
 	restart = Sprite::create("Restart.png");
 	restart->setPosition(Vec2(centerX, 200));
@@ -54,7 +78,7 @@ bool PauseScene::init()
 	{
 		auto location = touch->getLocation();
 
-		if (resume->boundingBox().containsPoint(location))
+		if (resume && resume->boundingBox().containsPoint(location))
 		{
 			Director::getInstance()->popScene();
 			return true;

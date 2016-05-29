@@ -6,7 +6,6 @@
 #include "Plankton.h"
 #include "Enemies.h"
 #include "Enemy.h"
-#include "HelloWorldScene.h"
 
 USING_NS_CC;
 
@@ -220,6 +219,6 @@ void GameScene::onExit()
 
 void GameScene::GameOver(std::string const& reason)
 {
-	auto scene = HelloWorld::createScene();
-	Director::getInstance()->replaceScene(scene);
+	auto scene = PauseScene::createScene(reason, false);
+	Director::getInstance()->pushScene(scene);
 }
