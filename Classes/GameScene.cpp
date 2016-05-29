@@ -35,16 +35,27 @@ bool GameScene::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	fieldSize = Size(1920, 1080);
+	camSize = visibleSize;
 
 
 	node = Node::create();
 	node->setAnchorPoint(Vec2());
 	addChild(node);
 
-	pause = Sprite::create("button_black_pause.png");
-	pause->setPosition(Vec2(visibleSize) - Vec2(40, 40));
-	pause->setScale(0.6);
-	addChild(pause);
+	auto background = Sprite::create("brushwalker137.png");
+	Texture2D::TexParams tp;
+	tp.minFilter = GL_LINEAR;
+	tp.magFilter = GL_LINEAR;
+	tp.wrapS = GL_REPEAT;
+	tp.wrapT = GL_REPEAT;
+	background->getTexture()->setTexParameters(tp);
+	background->setTextureRect(Rect(Vec2(), fieldSize));
+	background->setAnchorPoint(Vec2());
+	node->addChild(background);
+
+	planktons = Planktons::create();
+	node->addChild(planktons);
 
 	player = Player::create();
 	player->SetArea(10000);
@@ -55,11 +66,10 @@ bool GameScene::init()
 	massText->setPosition(Vec2(40, visibleSize.height - 40));
 	addChild(massText);
 
-	planktons = Planktons::create();
-	node->addChild(planktons);
-
-	fieldSize = Size(1920, 1080);
-	camSize = Size(800, 480);
+	pause = Sprite::create("button_black_pause.png");
+	pause->setPosition(Vec2(visibleSize) - Vec2(40, 40));
+	pause->setScale(0.6);
+	addChild(pause);
 
 
 	auto touchListener = EventListenerTouchOneByOne::create();
