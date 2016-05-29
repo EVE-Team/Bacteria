@@ -62,6 +62,7 @@ bool GameScene::init()
 
 	player = Player::create();
 	player->SetArea(5000);
+	player->setPosition(Vec2(visibleSize) / 2);
 	node->addChild(player);
 
 	massText = Label::createWithTTF("Mass: " + Utils::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 24);
