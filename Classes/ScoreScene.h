@@ -13,5 +13,5 @@ public:
 	CREATE_FUNC(ScoreScene);
 
 private:
-	cocos2d::Sprite *menu;
+	cocos2d::Label *menu;
 };

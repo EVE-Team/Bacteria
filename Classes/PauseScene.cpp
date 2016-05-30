@@ -48,27 +48,40 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	const float centerX = visibleSize.width / 2;
 
 
-	auto labelNode = Label::createWithTTF(label, "fonts/Marker Felt.ttf", 24);
-	labelNode->setAnchorPoint(Vec2(0, 0.5));
-	labelNode->setPosition(Vec2(40, visibleSize.height - 40));
+	auto background = Sprite::create("brushwalker137.png");
+	Texture2D::TexParams tp;
+	tp.minFilter = GL_LINEAR;
+	tp.magFilter = GL_LINEAR;
+	tp.wrapS = GL_REPEAT;
+	tp.wrapT = GL_REPEAT;
+	background->getTexture()->setTexParameters(tp);
+	background->setTextureRect(Rect(Vec2(), visibleSize));
+	background->setAnchorPoint(Vec2());
+	addChild(background);
+
+	auto labelNode = Label::createWithTTF(label, "fonts/Marker Felt.ttf", 72);
+	labelNode->setColor(Color3B(0, 0, 0));
+	labelNode->setPosition(Vec2(visibleSize.width / 2, 400));
 	addChild(labelNode);
 
 	if (resumeAllowed)
 	{
-		resume = Sprite::create("Resume.png");
-		resume->setPosition(Vec2(centerX, 300));
+		resume = Label::createWithTTF("Resume", "fonts/Marker Felt.ttf", 36);
+		resume->setColor(Color3B(0, 0, 0));
+		resume->setPosition(Vec2(visibleSize.width / 2, 300));
 		addChild(resume);
 	}
 
-	restart = Sprite::create("Restart.png");
-	restart->setPosition(Vec2(centerX, 200));
+	restart = Label::createWithTTF("Restart", "fonts/Marker Felt.ttf", 36);
+	restart->setColor(Color3B(0, 0, 0));
+	restart->setPosition(Vec2(visibleSize.width / 2, 200));
 	addChild(restart);
 
-	menu = Sprite::create("Exit.png");
-	menu->setPosition(Vec2(centerX, 100));
+	menu = Label::createWithTTF("Main menu", "fonts/Marker Felt.ttf", 36);
+	menu->setColor(Color3B(0, 0, 0));
+	menu->setPosition(Vec2(visibleSize.width / 2, 100));
 	addChild(menu);
 
 

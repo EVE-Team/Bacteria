@@ -13,7 +13,7 @@ public:
 	CREATE_FUNC(HelloWorld);
 
 private:
-	cocos2d::Sprite *newGame;
-	cocos2d::Sprite *scores;
-	cocos2d::Sprite *exit;
+	cocos2d::Label *newGame;
+	cocos2d::Label *scores;
+	cocos2d::Label *exit;
 };

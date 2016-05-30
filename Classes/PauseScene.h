@@ -10,7 +10,7 @@ public:
 	virtual bool init(std::string const& label, bool resumeAllowed);
 
 private:
-	cocos2d::Sprite *resume = nullptr;
-	cocos2d::Sprite *restart;
-	cocos2d::Sprite *menu;
+	cocos2d::Label *resume = nullptr;
+	cocos2d::Label *restart;
+	cocos2d::Label *menu;
 };
