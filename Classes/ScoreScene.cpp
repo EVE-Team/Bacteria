@@ -34,19 +34,11 @@ bool ScoreScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
-	auto background = Sprite::create("brushwalker137.png");
-	Texture2D::TexParams tp;
-	tp.minFilter = GL_LINEAR;
-	tp.magFilter = GL_LINEAR;
-	tp.wrapS = GL_REPEAT;
-	tp.wrapT = GL_REPEAT;
-	background->getTexture()->setTexParameters(tp);
-	background->setTextureRect(Rect(Vec2(), visibleSize));
+	auto background = Sprite::create("background.png");
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 
 	menu = Label::createWithTTF("Back to menu", "fonts/Marker Felt.ttf", 36);
-	menu->setColor(Color3B(0, 0, 0));
 	menu->setPosition(Vec2(visibleSize.width / 2, 100));
 	addChild(menu);
 
@@ -58,7 +50,6 @@ bool ScoreScene::init()
 	}
 
 	scores = Label::createWithTTF(scoreText, "fonts/Marker Felt.ttf", 36);
-	scores->setColor(Color3B(0, 0, 0));
 	scores->setPosition(Vec2(visibleSize.width / 2, 300));
 	addChild(scores);
 

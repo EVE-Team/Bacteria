@@ -34,34 +34,23 @@ bool HelloWorld::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
-	auto background = Sprite::create("brushwalker137.png");
-	Texture2D::TexParams tp;
-	tp.minFilter = GL_LINEAR;
-	tp.magFilter = GL_LINEAR;
-	tp.wrapS = GL_REPEAT;
-	tp.wrapT = GL_REPEAT;
-	background->getTexture()->setTexParameters(tp);
-	background->setTextureRect(Rect(Vec2(), visibleSize));
+	auto background = Sprite::create("background.png");
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 
 	auto labelNode = Label::createWithTTF("Bacteria", "fonts/Marker Felt.ttf", 72);
-	labelNode->setColor(Color3B(0, 0, 0));
 	labelNode->setPosition(Vec2(visibleSize.width / 2, 400));
 	addChild(labelNode);
 
 	newGame = Label::createWithTTF("New game", "fonts/Marker Felt.ttf", 36);
-	newGame->setColor(Color3B(0, 0, 0));
 	newGame->setPosition(Vec2(visibleSize.width / 2, 300));
 	addChild(newGame);
 
 	scores = Label::createWithTTF("Scores", "fonts/Marker Felt.ttf", 36);
-	scores->setColor(Color3B(0, 0, 0));
 	scores->setPosition(Vec2(visibleSize.width / 2, 200));
 	addChild(scores);
 
 	exit = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 36);
-	exit->setColor(Color3B(0, 0, 0));
 	exit->setPosition(Vec2(visibleSize.width / 2, 100));
 	addChild(exit);
 

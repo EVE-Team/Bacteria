@@ -66,7 +66,6 @@ bool GameScene::init()
 	node->addChild(player);
 
 	massText = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);
-	massText->setColor(Color3B(0, 0, 0));
 	massText->setAnchorPoint(Vec2(0, 0.5));
 	massText->setPosition(Vec2(40, visibleSize.height - 40));
 	UpdateInfo();

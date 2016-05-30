@@ -50,37 +50,26 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
-	auto background = Sprite::create("brushwalker137.png");
-	Texture2D::TexParams tp;
-	tp.minFilter = GL_LINEAR;
-	tp.magFilter = GL_LINEAR;
-	tp.wrapS = GL_REPEAT;
-	tp.wrapT = GL_REPEAT;
-	background->getTexture()->setTexParameters(tp);
-	background->setTextureRect(Rect(Vec2(), visibleSize));
+	auto background = Sprite::create("background.png");
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 
 	auto labelNode = Label::createWithTTF(label, "fonts/Marker Felt.ttf", 72);
-	labelNode->setColor(Color3B(0, 0, 0));
 	labelNode->setPosition(Vec2(visibleSize.width / 2, 400));
 	addChild(labelNode);
 
 	if (resumeAllowed)
 	{
 		resume = Label::createWithTTF("Resume", "fonts/Marker Felt.ttf", 36);
-		resume->setColor(Color3B(0, 0, 0));
 		resume->setPosition(Vec2(visibleSize.width / 2, 300));
 		addChild(resume);
 	}
 
 	restart = Label::createWithTTF("Restart", "fonts/Marker Felt.ttf", 36);
-	restart->setColor(Color3B(0, 0, 0));
 	restart->setPosition(Vec2(visibleSize.width / 2, 200));
 	addChild(restart);
 
 	menu = Label::createWithTTF("Main menu", "fonts/Marker Felt.ttf", 36);
-	menu->setColor(Color3B(0, 0, 0));
 	menu->setPosition(Vec2(visibleSize.width / 2, 100));
 	addChild(menu);
 
