@@ -38,6 +38,13 @@ bool ScoreScene::init()
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 
+	{
+		auto btn = Sprite::create("button.png");
+		btn->setPosition(Vec2(visibleSize.width / 2, 100));
+		btn->setScaleX(1.2);
+		addChild(btn);
+	}
+
 	menu = Label::createWithTTF("Back to menu", "fonts/Marker Felt.ttf", 36);
 	menu->setPosition(Vec2(visibleSize.width / 2, 100));
 	addChild(menu);

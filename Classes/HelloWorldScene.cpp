@@ -42,13 +42,34 @@ bool HelloWorld::init()
 	labelNode->setPosition(Vec2(visibleSize.width / 2, 400));
 	addChild(labelNode);
 
+	{
+		auto btn = Sprite::create("button.png");
+		btn->setPosition(Vec2(visibleSize.width / 2, 300));
+		btn->setScaleX(1.2);
+		addChild(btn);
+	}
+
 	newGame = Label::createWithTTF("New game", "fonts/Marker Felt.ttf", 36);
 	newGame->setPosition(Vec2(visibleSize.width / 2, 300));
 	addChild(newGame);
 
+	{
+		auto btn = Sprite::create("button.png");
+		btn->setPosition(Vec2(visibleSize.width / 2, 200));
+		btn->setScaleX(1.2);
+		addChild(btn);
+	}
+
 	scores = Label::createWithTTF("Scores", "fonts/Marker Felt.ttf", 36);
 	scores->setPosition(Vec2(visibleSize.width / 2, 200));
 	addChild(scores);
+
+	{
+		auto btn = Sprite::create("button.png");
+		btn->setPosition(Vec2(visibleSize.width / 2, 100));
+		btn->setScaleX(1.2);
+		addChild(btn);
+	}
 
 	exit = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 36);
 	exit->setPosition(Vec2(visibleSize.width / 2, 100));

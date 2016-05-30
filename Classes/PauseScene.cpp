@@ -60,14 +60,35 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 
 	if (resumeAllowed)
 	{
+		{
+			auto btn = Sprite::create("button.png");
+			btn->setPosition(Vec2(visibleSize.width / 2, 300));
+			btn->setScaleX(1.2);
+			addChild(btn);
+		}
+
 		resume = Label::createWithTTF("Resume", "fonts/Marker Felt.ttf", 36);
 		resume->setPosition(Vec2(visibleSize.width / 2, 300));
 		addChild(resume);
 	}
 
+	{
+		auto btn = Sprite::create("button.png");
+		btn->setPosition(Vec2(visibleSize.width / 2, 200));
+		btn->setScaleX(1.2);
+		addChild(btn);
+	}
+
 	restart = Label::createWithTTF("Restart", "fonts/Marker Felt.ttf", 36);
 	restart->setPosition(Vec2(visibleSize.width / 2, 200));
 	addChild(restart);
+
+	{
+		auto btn = Sprite::create("button.png");
+		btn->setPosition(Vec2(visibleSize.width / 2, 100));
+		btn->setScaleX(1.2);
+		addChild(btn);
+	}
 
 	menu = Label::createWithTTF("Main menu", "fonts/Marker Felt.ttf", 36);
 	menu->setPosition(Vec2(visibleSize.width / 2, 100));
