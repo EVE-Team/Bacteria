@@ -224,6 +224,7 @@ void GameScene::onExit()
 
 void GameScene::GameOver(std::string const& reason)
 {
+	Utils::AddHighScore(score);
 	auto scene = PauseScene::createScene(reason, false);
 	Director::getInstance()->pushScene(scene);
 }

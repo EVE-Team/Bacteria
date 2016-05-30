@@ -73,3 +73,20 @@ Vec2 Utils::ResizeVec2(Vec2 vec, float len)
 	pv.dist = len;
 	return PolarToLinear(pv);
 }
+
+static std::vector<float> highScores;
+
+void Utils::AddHighScore(float score)
+{
+	highScores.push_back(score);
+	std::sort(highScores.begin(), highScores.end(), [](float a, float b){ return a > b; });
+	if (highScores.size() > 5)
+	{
+		highScores.pop_back();
+	}
+}
+
+std::vector<float>& Utils::GetHighScores()
+{
+	return highScores;
+}

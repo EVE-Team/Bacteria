@@ -14,4 +14,5 @@ public:
 
 private:
 	cocos2d::Label *menu;
+	cocos2d::Label *scores;
 };

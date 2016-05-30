@@ -33,4 +33,7 @@ public:
 		os << value;
 		return os.str();
 	}
+
+	static void AddHighScore(float score);
+	static std::vector<float>& GetHighScores();
 };

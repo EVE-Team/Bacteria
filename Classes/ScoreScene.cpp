@@ -1,5 +1,6 @@
 #include "ScoreScene.h"
 #include "HelloWorldScene.h"
+#include "Utils.h"
 
 USING_NS_CC;
 
@@ -23,7 +24,7 @@ bool ScoreScene::init()
 {
 	//////////////////////////////
 	// 1. super init first
-	if ( !Layer::init() )
+	if (!Layer::init())
 	{
 		return false;
 	}
@@ -48,6 +49,18 @@ bool ScoreScene::init()
 	menu->setColor(Color3B(0, 0, 0));
 	menu->setPosition(Vec2(visibleSize.width / 2, 100));
 	addChild(menu);
+
+	std::string scoreText = "Scores:\n";
+	auto scoreVector = Utils::GetHighScores();
+	for (size_t i = 0; i < scoreVector.size(); ++i)
+	{
+		scoreText += Utils::to_string(i + 1) + ": " + Utils::to_string(scoreVector[i]) + "\n";
+	}
+
+	scores = Label::createWithTTF(scoreText, "fonts/Marker Felt.ttf", 36);
+	scores->setColor(Color3B(0, 0, 0));
+	scores->setPosition(Vec2(visibleSize.width / 2, 300));
+	addChild(scores);
 
 
 	auto touchListener = EventListenerTouchOneByOne::create();
