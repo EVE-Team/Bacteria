@@ -12,8 +12,8 @@ public:
 	static cocos2d::Vec2 RandVec2();
 
 	static const cocos2d::Size fieldSize;
-	static const float planktonArea;
-	static const float bacteriaPushForce;
+	static const float planktonAreaMul;
+	static const float bacteriaPushForceMul;
 	static const float planktonPushForceMul;
 
 	struct PolarVec2

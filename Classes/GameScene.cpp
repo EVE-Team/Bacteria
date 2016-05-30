@@ -90,15 +90,17 @@ bool GameScene::init()
 			return true;
 		}
 
-		if (player->GetArea() >= 2 * Utils::planktonArea)
+		float plArea = player->GetArea() * Utils::planktonAreaMul;
+
+		if (/*player->GetArea() >= 2 * Utils::planktonArea*/ true)
 		{
 			auto nodeLocation = location - node->getPosition();
-			Vec2 plMov = Utils::ResizeVec2(nodeLocation - player->getPosition(), Utils::bacteriaPushForce);
+			Vec2 plMov = Utils::ResizeVec2(nodeLocation - player->getPosition(), Utils::bacteriaPushForceMul * plArea);
 			player->Push(plMov);
 
-			player->SetArea(player->GetArea() - Utils::planktonArea);
+			player->SetArea(player->GetArea() - plArea);
 			massText->setString("Mass: " + Utils::to_string(player->GetArea()));
-			planktons->AddPlankton(player->getPosition());
+			planktons->AddPlankton(player->getPosition(), plArea);
 			planktons->list.back()->Push(plMov * Utils::planktonPushForceMul);
 		}
 		else

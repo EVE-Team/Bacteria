@@ -9,7 +9,5 @@ public:
 
 	void Tick(float dt) override;
 	bool Vulnerable() const;
-
-private:
-	float invulnerability = 0.5;
+	float invulnerability;
 };

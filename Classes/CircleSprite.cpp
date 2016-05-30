@@ -55,7 +55,7 @@ void CircleSprite::Tick(float dt)
 	}
 
 	float velAmp = Utils::length(vel);
-	float newVelAmp = velAmp - 500 * dt;
+	float newVelAmp = velAmp - 50 * dt;
 
 	if (newVelAmp > 0)
 	{

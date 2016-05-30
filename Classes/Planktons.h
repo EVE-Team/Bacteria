@@ -11,7 +11,7 @@ public:
 
 	bool init() override;
 	void Tick(float dt);
-	void AddPlankton(cocos2d::Vec2 pos);
+	void AddPlankton(cocos2d::Vec2 pos, float area = 500);
 
 	std::list<Plankton*> list;
 };
