@@ -65,10 +65,11 @@ bool GameScene::init()
 	player->setPosition(Vec2(Utils::fieldSize) / 2);
 	node->addChild(player);
 
-	massText = Label::createWithTTF("Mass: " + Utils::to_string(player->GetArea()), "fonts/Marker Felt.ttf", 24);
+	massText = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);
 	massText->setColor(Color3B(0, 0, 0));
 	massText->setAnchorPoint(Vec2(0, 0.5));
 	massText->setPosition(Vec2(40, visibleSize.height - 40));
+	UpdateInfo();
 	addChild(massText);
 
 	pause = Sprite::create("button_black_pause.png");
@@ -99,7 +100,7 @@ bool GameScene::init()
 			player->Push(plMov);
 
 			player->SetArea(player->GetArea() - plArea);
-			massText->setString("Mass: " + Utils::to_string(player->GetArea()));
+			UpdateInfo();
 			planktons->AddPlankton(player->getPosition(), plArea);
 			planktons->list.back()->Push(plMov * Utils::planktonPushForceMul);
 		}
@@ -126,7 +127,7 @@ void GameScene::EatPlankton()
 		if (Utils::length(player->getPosition() - (*it)->getPosition()) < player->GetRadius())
 		{
 			player->SetArea(player->GetArea() + (*it)->GetArea());
-			massText->setString("Mass: " + Utils::to_string(player->GetArea()));
+			AddScore((*it)->GetArea());
 
 			planktons->removeChild(*it, true);
 			planktons->list.erase(it);
@@ -140,6 +141,7 @@ void GameScene::EatPlankton()
 				if (Utils::length(enemy->getPosition() - (*it)->getPosition()) < enemy->GetRadius())
 				{
 					enemy->SetArea(enemy->GetArea() + (*it)->GetArea());
+					UpdateInfo();
 
 					planktons->removeChild(*it, true);
 					planktons->list.erase(it);
@@ -163,7 +165,7 @@ void GameScene::EnemyPlayerCollision()
 				GameOver("All enemies are defeated");
 
 			player->SetArea(player->GetArea() + (*it)->GetArea());
-			massText->setString("Mass: " + Utils::to_string(player->GetArea()));
+			AddScore((*it)->GetArea());
 
 			enemies->removeChild(*it, true);
 			enemies->list.erase(it);
@@ -224,4 +226,15 @@ void GameScene::GameOver(std::string const& reason)
 {
 	auto scene = PauseScene::createScene(reason, false);
 	Director::getInstance()->pushScene(scene);
+}
+
+void GameScene::AddScore(float score)
+{
+	this->score += score;
+	UpdateInfo();
+}
+
+void GameScene::UpdateInfo()
+{
+	massText->setString("Mass: " + Utils::to_string(player->GetArea()) + "  Score: " + Utils::to_string(score));
 }

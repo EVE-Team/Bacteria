@@ -31,4 +31,9 @@ public:
 	void EatPlankton();
 	void EnemyPlayerCollision();
 	void GameOver(std::string const& reason);
+	void AddScore(float score);
+	void UpdateInfo();
+
+private:
+	float score = 0;
 };
