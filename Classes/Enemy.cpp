@@ -41,20 +41,20 @@ void Enemy::Tick(float dt)
 
 	if (plDist < 250)
 	{
-		Vec2 movTw = Utils::ResizeVec2(player->getPosition() - getPosition(), Utils::bacteriaPushForceMul * plArea);
+		Vec2 movTw = Utils::ResizeVec2(player->getPosition() - getPosition(), Utils::bacteriaPushForce);
 		if (player->GetArea() > GetArea())
 			movTw *= -1;
-		Push(movTw);
+		AddVelocity(movTw);
 
 		reload = RELOAD_TIME_MUL / 5000;
 
 		SetArea(GetArea() - plArea);
 		gameScene->planktons->AddPlankton(getPosition(), plArea);
-		gameScene->planktons->list.back()->Push(movTw * Utils::planktonPushForceMul);
+		gameScene->planktons->list.back()->AddVelocity(movTw * Utils::planktonPushForceMul);
 	}
 	else
 	{
-		if (Utils::length(GetVelocity()) > 0.4 * (Utils::bacteriaPushForceMul * plArea / GetArea()))
+		if (Utils::length(GetVelocity()) > 0.4 * Utils::bacteriaPushForce)
 			return;
 
 		auto planktonsList = &(gameScene->planktons->list);
@@ -70,14 +70,14 @@ void Enemy::Tick(float dt)
 
 		});
 
-		Vec2 mov = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), Utils::bacteriaPushForceMul * plArea);
-		Push(mov);
+		Vec2 mov = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), Utils::bacteriaPushForce);
+		AddVelocity(mov);
 
 		reload = RELOAD_TIME_MUL / 5000;
 
 		SetArea(GetArea() - plArea);
 		gameScene->planktons->AddPlankton(getPosition(), plArea);
-		gameScene->planktons->list.back()->Push(mov * Utils::planktonPushForceMul);
+		gameScene->planktons->list.back()->AddVelocity(mov * Utils::planktonPushForceMul);
 	}
 }
 

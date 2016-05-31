@@ -13,7 +13,7 @@ public:
 
 	static const cocos2d::Size fieldSize;
 	static const float planktonAreaMul;
-	static const float bacteriaPushForceMul;
+	static const float bacteriaPushForce;
 	static const float planktonPushForceMul;
 
 	struct PolarVec2

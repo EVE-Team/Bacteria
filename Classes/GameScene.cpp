@@ -90,22 +90,16 @@ bool GameScene::init()
 			return true;
 		}
 
-		float plArea = player->GetArea() * Utils::planktonAreaMul;
-
-		if (/*player->GetArea() >= 2 * Utils::planktonArea*/ true)
 		{
 			auto nodeLocation = location - node->getPosition();
-			Vec2 plMov = Utils::ResizeVec2(nodeLocation - player->getPosition(), Utils::bacteriaPushForceMul * plArea);
-			player->Push(plMov);
+			Vec2 plMov = Utils::ResizeVec2(nodeLocation - player->getPosition(), Utils::bacteriaPushForce);
+			player->AddVelocity(plMov);
 
+			float plArea = player->GetArea() * Utils::planktonAreaMul;
 			player->SetArea(player->GetArea() - plArea);
 			UpdateInfo();
 			planktons->AddPlankton(player->getPosition(), plArea);
-			planktons->list.back()->Push(plMov * Utils::planktonPushForceMul);
-		}
-		else
-		{
-			//GameOver("You've lost too much mass");
+			planktons->list.back()->AddVelocity(plMov * Utils::planktonPushForceMul);
 		}
 
 		return true;

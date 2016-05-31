@@ -5,13 +5,11 @@
 class CircleSprite : public cocos2d::Sprite
 {
 public:
-	static bool Collide(CircleSprite *a, CircleSprite *b);
-
 	float GetRadius() const;
 	void SetRadius(float r);
 	float GetArea() const;
 	void SetArea(float a);
-	void Push(cocos2d::Vec2 force);
+	void AddVelocity(cocos2d::Vec2 vel);
 	virtual void Tick(float dt);
 	cocos2d::Vec2 GetVelocity() const;
 

@@ -4,12 +4,6 @@
 
 USING_NS_CC;
 
-bool CircleSprite::Collide(CircleSprite *a, CircleSprite *b)
-{
-	float dist = Utils::length(a->getPosition() - b->getPosition());
-	return dist < (a->GetRadius() + b->GetRadius());
-}
-
 float CircleSprite::GetArea() const
 {
 	return M_PI * GetRadius() * GetRadius();
@@ -20,9 +14,9 @@ void CircleSprite::SetArea(float a)
 	SetRadius(sqrt(a / M_PI));
 }
 
-void CircleSprite::Push(Vec2 force)
+void CircleSprite::AddVelocity(Vec2 vel)
 {
-	vel += force / GetArea();
+	this->vel += vel;
 }
 
 void CircleSprite::Tick(float dt)
@@ -54,13 +48,12 @@ void CircleSprite::Tick(float dt)
 		vel.y = 0;
 	}
 
-	float velAmp = Utils::length(vel);
-	float newVelAmp = velAmp - 50 * dt;
+	auto polVel = Utils::LinearToPolar(vel);
+	polVel.dist -= 50 * dt;
 
-	if (newVelAmp > 0)
+	if (polVel.dist > 0)
 	{
-		float mul = newVelAmp / velAmp;
-		vel *= mul;
+		vel = Utils::PolarToLinear(polVel);
 	}
 	else
 	{
