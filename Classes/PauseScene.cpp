@@ -55,7 +55,10 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 	addChild(background);
 
 	auto labelNode = Sprite::create(label);
-	labelNode->setPosition(Vec2(visibleSize.width / 2, 400));
+	if (resumeAllowed)
+		labelNode->setPosition(Vec2(visibleSize.width / 2, 400));
+	else
+		labelNode->setPosition(Vec2(visibleSize.width / 2, 350));
 	addChild(labelNode);
 
 	if (resumeAllowed)

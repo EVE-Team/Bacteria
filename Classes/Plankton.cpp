@@ -2,12 +2,13 @@
 
 USING_NS_CC;
 
-Plankton* Plankton::create(Texture2D *texture)
+Plankton* Plankton::create(Texture2D *texture, float invulnerability)
 {
 	Plankton *sprite = new (std::nothrow) Plankton();
 	if (sprite && sprite->initWithTexture(texture))
 	{
 		sprite->autorelease();
+		sprite->invulnerability = invulnerability;
 		sprite->picSize = 1.0 * sprite->getContentSize().width / 2;
 		return sprite;
 	}

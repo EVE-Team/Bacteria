@@ -41,8 +41,7 @@ void Planktons::Tick(float dt)
 
 void Planktons::AddPlankton(Vec2 pos, float area)
 {
-	auto p = Plankton::create(getTexture());
-	p->invulnerability = area * 0.001;
+	auto p = Plankton::create(getTexture(), area * 0.001);
 	p->setPosition(pos);
 	p->SetArea(area);
 	list.push_back(p);

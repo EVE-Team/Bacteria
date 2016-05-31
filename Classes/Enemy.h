@@ -11,6 +11,6 @@ public:
 	void Tick(float dt) override;
 
 	GameScene *gameScene;
-	static const float RELOAD_TIME_MUL;
+	static const float RELOAD_TIME;
 	float reload = 0;
 };

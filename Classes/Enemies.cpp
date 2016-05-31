@@ -45,7 +45,7 @@ void Enemies::AddEnemy(Vec2 pos)
 {
 	auto p = Enemy::create(gameScene, getTexture());
 	p->setPosition(pos);
-	p->SetArea(10000);
+	p->SetArea(7500);
 	list.push_back(p);
 	addChild(p);
 }

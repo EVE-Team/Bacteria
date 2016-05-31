@@ -32,9 +32,6 @@ void Enemy::Tick(float dt)
 	if (reload > 0)
 		return;
 
-	/*if (GetArea() < 2 * Utils::planktonArea)
-		return;*/
-
 	Player *player = gameScene->player;
 	float plDist = Utils::length(player->getPosition(), getPosition());
 	float plArea = GetArea() * Utils::planktonAreaMul;
@@ -46,7 +43,7 @@ void Enemy::Tick(float dt)
 			movTw *= -1;
 		AddVelocity(movTw);
 
-		reload = RELOAD_TIME_MUL / 5000;
+		reload = RELOAD_TIME;
 
 		SetArea(GetArea() - plArea);
 		gameScene->planktons->AddPlankton(getPosition(), plArea);
@@ -73,7 +70,7 @@ void Enemy::Tick(float dt)
 		Vec2 mov = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), Utils::bacteriaPushForce);
 		AddVelocity(mov);
 
-		reload = RELOAD_TIME_MUL / 5000;
+		reload = RELOAD_TIME;
 
 		SetArea(GetArea() - plArea);
 		gameScene->planktons->AddPlankton(getPosition(), plArea);
@@ -81,4 +78,4 @@ void Enemy::Tick(float dt)
 	}
 }
 
-const float Enemy::RELOAD_TIME_MUL = 2000;
+const float Enemy::RELOAD_TIME = 0.4;

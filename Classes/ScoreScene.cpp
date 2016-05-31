@@ -52,7 +52,7 @@ bool ScoreScene::init()
 	}
 
 	scores = Label::createWithTTF(scoreText, "fonts/Marker Felt.ttf", 36);
-	scores->setPosition(Vec2(visibleSize.width / 2, 300));
+	scores->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
 	addChild(scores);
 
 	{
