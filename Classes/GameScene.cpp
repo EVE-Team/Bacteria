@@ -105,7 +105,7 @@ bool GameScene::init()
 		}
 		else
 		{
-			GameOver("You've lost too much mass");
+			//GameOver("You've lost too much mass");
 		}
 
 		return true;
@@ -161,7 +161,7 @@ void GameScene::EnemyPlayerCollision()
 		if (dist < player->GetRadius())
 		{
 			if (enemies->list.size() == 1)
-				GameOver("All enemies are defeated");
+				GameOver("victory.png");
 
 			player->SetArea(player->GetArea() + (*it)->GetArea());
 			AddScore((*it)->GetArea());
@@ -173,7 +173,7 @@ void GameScene::EnemyPlayerCollision()
 		}
 		else if (dist < (*it)->GetRadius())
 		{
-			GameOver("You've been eaten");
+			GameOver("lose.png");
 		}
 	}
 }

@@ -39,15 +39,10 @@ bool ScoreScene::init()
 	addChild(background);
 
 	{
-		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(visibleSize.width / 2, 100));
-		btn->setScaleX(1.2);
-		addChild(btn);
+		auto bg = Sprite::create("scores_bg.png");
+		bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+		addChild(bg);
 	}
-
-	menu = Label::createWithTTF("Back to menu", "fonts/Marker Felt.ttf", 36);
-	menu->setPosition(Vec2(visibleSize.width / 2, 100));
-	addChild(menu);
 
 	std::string scoreText = "Scores:\n";
 	auto scoreVector = Utils::GetHighScores();
@@ -59,6 +54,17 @@ bool ScoreScene::init()
 	scores = Label::createWithTTF(scoreText, "fonts/Marker Felt.ttf", 36);
 	scores->setPosition(Vec2(visibleSize.width / 2, 300));
 	addChild(scores);
+
+	{
+		auto btn = Sprite::create("button.png");
+		btn->setPosition(Vec2(visibleSize.width / 2, 100));
+		btn->setScaleX(1.2);
+		addChild(btn);
+	}
+
+	menu = Label::createWithTTF("Back to menu", "fonts/Marker Felt.ttf", 36);
+	menu->setPosition(Vec2(visibleSize.width / 2, 100));
+	addChild(menu);
 
 
 	auto touchListener = EventListenerTouchOneByOne::create();

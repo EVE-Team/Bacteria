@@ -54,7 +54,7 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 
-	auto labelNode = Label::createWithTTF(label, "fonts/Marker Felt.ttf", 72);
+	auto labelNode = Sprite::create(label);
 	labelNode->setPosition(Vec2(visibleSize.width / 2, 400));
 	addChild(labelNode);
 

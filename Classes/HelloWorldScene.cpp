@@ -38,9 +38,11 @@ bool HelloWorld::init()
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 
-	auto labelNode = Label::createWithTTF("Bacteria", "fonts/Marker Felt.ttf", 72);
-	labelNode->setPosition(Vec2(visibleSize.width / 2, 400));
-	addChild(labelNode);
+	{
+		auto label = Sprite::create("title.png");
+		label->setPosition(Vec2(visibleSize.width / 2, 400));
+		addChild(label);
+	}
 
 	{
 		auto btn = Sprite::create("button.png");

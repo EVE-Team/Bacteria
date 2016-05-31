@@ -5,7 +5,7 @@
 class PauseScene : public cocos2d::Layer
 {
 public:
-	static cocos2d::Scene* createScene(std::string const& label = "Pause", bool resumeAllowed = true);
+	static cocos2d::Scene* createScene(std::string const& label = "pause.png", bool resumeAllowed = true);
 	static PauseScene* create(std::string const& label, bool resumeAllowed);
 	virtual bool init(std::string const& label, bool resumeAllowed);
 
