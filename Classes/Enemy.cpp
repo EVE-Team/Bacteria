@@ -52,10 +52,10 @@ void Enemy::Tick(float dt)
 			{
 				bool closerResult = CircleSprite::CenterDistance(this, a) < CircleSprite::CenterDistance(this, b);
 
-				if (!b->Vulnerable())
-					return a->Vulnerable() ? true : closerResult;
+				if (!b->Vulnerable(this))
+					return a->Vulnerable(this) ? true : closerResult;
 				else
-					return a->Vulnerable() ? closerResult : false;
+					return a->Vulnerable(this) ? closerResult : false;
 			});
 
 			vel = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), Utils::bacteriaPushForce);
@@ -69,7 +69,7 @@ void Enemy::Tick(float dt)
 		reload = RELOAD_TIME;
 
 		SetArea(GetArea() - planktonArea);
-		gameScene->planktons->AddPlankton(getPosition(), planktonArea);
+		gameScene->planktons->AddPlankton(getPosition(), planktonArea, this);
 		gameScene->planktons->list.back()->AddVelocity(vel * Utils::planktonPushForceMul);
 	}
 }

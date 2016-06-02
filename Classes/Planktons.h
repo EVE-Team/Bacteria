@@ -3,15 +3,20 @@
 #include "cocos2d.h"
 
 class Plankton;
+class CircleSprite;
+class GameScene;
 
 class Planktons : public cocos2d::SpriteBatchNode
 {
 public:
-	static Planktons* create();
+	static Planktons* create(GameScene *gameScene);
 
-	bool init() override;
+	bool init(GameScene *gameScene);
 	void Tick(float dt);
-	void AddPlankton(cocos2d::Vec2 pos, float area = 500);
+	void AddPlankton(cocos2d::Vec2 pos, float area = 500, CircleSprite *owner = nullptr);
 
 	std::list<Plankton*> list;
+
+private:
+	GameScene *gameScene;
 };

@@ -50,7 +50,7 @@ bool GameScene::init()
 	background->setAnchorPoint(Vec2());
 	node->addChild(background);
 
-	planktons = Planktons::create();
+	planktons = Planktons::create(this);
 	node->addChild(planktons);
 
 	enemies = Enemies::create(this);
@@ -94,7 +94,7 @@ bool GameScene::init()
 			float plArea = player->GetArea() * Utils::planktonAreaMul;
 			player->SetArea(player->GetArea() - plArea);
 			UpdateInfo();
-			planktons->AddPlankton(player->getPosition(), plArea);
+			planktons->AddPlankton(player->getPosition(), plArea, player);
 			planktons->list.back()->AddVelocity(plMov * Utils::planktonPushForceMul);
 		}
 
@@ -110,10 +110,7 @@ void GameScene::EatPlankton()
 {
 	for (auto it = planktons->list.begin(); it != planktons->list.end(); ++it)
 	{
-		if (!(*it)->Vulnerable())
-			continue;
-
-		if (Utils::length(player->getPosition() - (*it)->getPosition()) < player->GetRadius())
+		if ((*it)->Vulnerable(player) && Utils::length(player->getPosition() - (*it)->getPosition()) < player->GetRadius())
 		{
 			player->SetArea(player->GetArea() + (*it)->GetArea());
 			AddScore((*it)->GetArea());
@@ -127,7 +124,7 @@ void GameScene::EatPlankton()
 		{
 			for (auto enemy : enemies->list)
 			{
-				if (Utils::length(enemy->getPosition() - (*it)->getPosition()) < enemy->GetRadius())
+				if ((*it)->Vulnerable(enemy) && Utils::length(enemy->getPosition() - (*it)->getPosition()) < enemy->GetRadius())
 				{
 					enemy->SetArea(enemy->GetArea() + (*it)->GetArea());
 					UpdateInfo();
@@ -228,4 +225,9 @@ void GameScene::AddScore(float score)
 void GameScene::UpdateInfo()
 {
 	massText->setString("Mass: " + Utils::to_string(player->GetArea()) + "  Score: " + Utils::to_string(score));
+}
+
+bool GameScene::IsAlive(CircleSprite *sprite) const
+{
+	return (player == sprite) || std::any_of(enemies->list.begin(), enemies->list.end(), [sprite](Enemy *e){ return sprite == e; });
 }

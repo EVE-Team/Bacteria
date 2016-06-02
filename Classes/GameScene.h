@@ -5,6 +5,7 @@
 class Player;
 class Planktons;
 class Enemies;
+class CircleSprite;
 
 class GameScene : public cocos2d::Layer
 {
@@ -32,6 +33,7 @@ public:
 	void GameOver(std::string const& reason);
 	void AddScore(float score);
 	void UpdateInfo();
+	bool IsAlive(CircleSprite *sprite) const;
 
 private:
 	float score = 0;
