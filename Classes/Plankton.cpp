@@ -9,7 +9,6 @@ Plankton* Plankton::create(Texture2D *texture, float invulnerability)
 	{
 		sprite->autorelease();
 		sprite->invulnerability = invulnerability;
-		sprite->picSize = 1.0 * sprite->getContentSize().width / 2;
 		return sprite;
 	}
 	CC_SAFE_DELETE(sprite);

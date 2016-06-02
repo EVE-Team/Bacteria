@@ -43,7 +43,7 @@ void CircleSprite::SetArea(float a)
 	SetRadius(sqrt(a / M_PI));
 }
 
-void CircleSprite::AddVelocity(Vec2 vel)
+void CircleSprite::AddVelocity(Vec2 const& vel)
 {
 	this->vel += vel;
 }
@@ -97,10 +97,15 @@ Vec2 CircleSprite::GetVelocity() const
 
 float CircleSprite::GetRadius() const
 {
-	return picSize * getScale();
+	return GetSpriteRadius() * getScale();
 }
 
 void CircleSprite::SetRadius(float r)
 {
-	setScale(r / picSize);
+	setScale(r / GetSpriteRadius());
+}
+
+float CircleSprite::GetSpriteRadius() const
+{
+	return getContentSize().width / 2;
 }

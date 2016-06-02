@@ -9,7 +9,6 @@ Player* Player::create()
 	if (sprite && sprite->initWithFile("Player.png"))
 	{
 		sprite->autorelease();
-		sprite->picSize = 1.0 * sprite->getContentSize().width / 2;
 		return sprite;
 	}
 	CC_SAFE_DELETE(sprite);

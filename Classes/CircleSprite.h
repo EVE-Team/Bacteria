@@ -12,13 +12,12 @@ public:
 	void SetRadius(float r);
 	float GetArea() const;
 	void SetArea(float a);
-	void AddVelocity(cocos2d::Vec2 vel);
+	void AddVelocity(cocos2d::Vec2 const& vel);
 	virtual void Tick(float dt);
 	cocos2d::Vec2 GetVelocity() const;
 
-protected:
-	float picSize;
-
 private:
 	cocos2d::Vec2 vel;
+
+	float GetSpriteRadius() const;
 };

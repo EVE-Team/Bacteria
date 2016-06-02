@@ -41,7 +41,7 @@ void Enemies::Tick(float dt)
 	}
 }
 
-void Enemies::AddEnemy(Vec2 pos)
+void Enemies::AddEnemy(Vec2 const& pos)
 {
 	auto p = Enemy::create(gameScene, getTexture());
 	p->setPosition(pos);

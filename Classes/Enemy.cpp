@@ -14,7 +14,6 @@ Enemy* Enemy::create(GameScene *gameScene, Texture2D *texture)
 	{
 		sprite->autorelease();
 		sprite->gameScene = gameScene;
-		sprite->picSize = 1.0 * sprite->getContentSize().width / 2;
 		return sprite;
 	}
 	CC_SAFE_DELETE(sprite);
@@ -33,48 +32,45 @@ void Enemy::Tick(float dt)
 		return;
 
 	Player *player = gameScene->player;
-	float plDist = Utils::length(player->getPosition(), getPosition());
-	float plArea = GetArea() * Utils::planktonAreaMul;
+	float planktonArea = GetArea() * Utils::planktonAreaMul;
 
-	if (plDist < 250)
+	Vec2 vel;
+
+	if (CircleSprite::CenterDistance(player, this) < 250)
 	{
-		Vec2 movTw = Utils::ResizeVec2(player->getPosition() - getPosition(), Utils::bacteriaPushForce);
+		vel = Utils::ResizeVec2(player->getPosition() - getPosition(), Utils::bacteriaPushForce);
 		if (player->GetArea() > GetArea())
-			movTw *= -1;
-		AddVelocity(movTw);
-
-		reload = RELOAD_TIME;
-
-		SetArea(GetArea() - plArea);
-		gameScene->planktons->AddPlankton(getPosition(), plArea);
-		gameScene->planktons->list.back()->AddVelocity(movTw * Utils::planktonPushForceMul);
+			vel *= -1;
 	}
 	else
 	{
-		if (Utils::length(GetVelocity()) > 0.4 * Utils::bacteriaPushForce)
-			return;
-
-		auto planktonsList = &(gameScene->planktons->list);
-		auto minIt = std::min_element(planktonsList->begin(), planktonsList->end(),
-			[this](Plankton *a, Plankton *b)
+		if (Utils::length(GetVelocity()) < 0.4 * Utils::bacteriaPushForce)
 		{
-			bool fairChoice = Utils::length(getPosition() - a->getPosition()) < Utils::length(getPosition() - b->getPosition());
+			auto planktonsList = &(gameScene->planktons->list);
+			auto minIt = std::min_element(planktonsList->begin(), planktonsList->end(),
+				[this](Plankton *a, Plankton *b)
+			{
+				bool closerResult = CircleSprite::CenterDistance(this, a) < CircleSprite::CenterDistance(this, b);
 
-			if (!b->Vulnerable())
-				return a->Vulnerable() ? true : fairChoice;
-			else
-				return a->Vulnerable() ? fairChoice : false;
+				if (!b->Vulnerable())
+					return a->Vulnerable() ? true : closerResult;
+				else
+					return a->Vulnerable() ? closerResult : false;
+			});
 
-		});
+			vel = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), Utils::bacteriaPushForce);
+		}
+	}
 
-		Vec2 mov = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), Utils::bacteriaPushForce);
-		AddVelocity(mov);
+	if (vel != Vec2())
+	{
+		AddVelocity(vel);
 
 		reload = RELOAD_TIME;
 
-		SetArea(GetArea() - plArea);
-		gameScene->planktons->AddPlankton(getPosition(), plArea);
-		gameScene->planktons->list.back()->AddVelocity(mov * Utils::planktonPushForceMul);
+		SetArea(GetArea() - planktonArea);
+		gameScene->planktons->AddPlankton(getPosition(), planktonArea);
+		gameScene->planktons->list.back()->AddVelocity(vel * Utils::planktonPushForceMul);
 	}
 }
 
