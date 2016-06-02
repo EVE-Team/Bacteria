@@ -31,6 +31,7 @@ const Size Utils::fieldSize = Size(2000, 2000);
 const float Utils::planktonAreaMul = 0.05;
 const float Utils::bacteriaPushForce = 200;
 const float Utils::planktonPushForceMul = -0.1;
+const float Utils::minBacteriaRadius = 25;
 
 Utils::PolarVec2 Utils::LinearToPolar(Vec2 lin)
 {

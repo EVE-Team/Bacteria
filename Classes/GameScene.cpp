@@ -150,13 +150,11 @@ void GameScene::EnemyPlayerCollision()
 {
 	for (auto it = enemies->list.begin(); it != enemies->list.end(); ++it)
 	{
-		float dist = Utils::length(player->getPosition() - (*it)->getPosition());
-
-		if (dist < player->GetRadius() + (*it)->GetRadius())
+		if (CircleSprite::CenterDistance(player, *it) < player->GetRadius() + (*it)->GetRadius())
 		{
-			if (player->GetRadius() > (*it)->GetRadius())
+			if (!CircleSprite::MassExchange(*it, player))
 			{
-				if ((*it)->GetRadius() < 5)
+				if (player->GetRadius() > (*it)->GetRadius())
 				{
 					if (enemies->list.size() == 1)
 						GameOver("victory.png");
@@ -168,16 +166,8 @@ void GameScene::EnemyPlayerCollision()
 					enemies->list.erase(it);
 				}
 				else
-					CircleSprite::MassExchange(*it, player);
-			}
-			else
-			{
-				if (player->GetRadius() < 5)
 					GameOver("lose.png");
-				else
-					CircleSprite::MassExchange(*it, player);
 			}
-
 			return;
 		}
 	}

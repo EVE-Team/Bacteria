@@ -9,7 +9,7 @@ float CircleSprite::CenterDistance(CircleSprite *a, CircleSprite *b)
 	return Utils::length(a->getPosition() - b->getPosition());
 }
 
-void CircleSprite::MassExchange(CircleSprite *a, CircleSprite *b)
+bool CircleSprite::MassExchange(CircleSprite *a, CircleSprite *b)
 {
 	CircleSprite *donator, *receiver;
 	if (a->GetArea() < b->GetArea())
@@ -23,10 +23,14 @@ void CircleSprite::MassExchange(CircleSprite *a, CircleSprite *b)
 		receiver = a;
 	}
 
+	if (donator->GetRadius() < Utils::minBacteriaRadius)
+		return false;
+
 	float areaSum = a->GetArea() + b->GetArea();
 	float cropRadius = a->GetRadius() + b->GetRadius() - CenterDistance(a, b);
 	donator->SetRadius(donator->GetRadius() - cropRadius);
 	receiver->SetArea(areaSum - donator->GetArea());
+	return true;
 }
 
 float CircleSprite::GetArea() const

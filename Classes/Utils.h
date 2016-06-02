@@ -15,6 +15,7 @@ public:
 	static const float planktonAreaMul;
 	static const float bacteriaPushForce;
 	static const float planktonPushForceMul;
+	static const float minBacteriaRadius;
 
 	struct PolarVec2
 	{
