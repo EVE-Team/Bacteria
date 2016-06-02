@@ -4,6 +4,31 @@
 
 USING_NS_CC;
 
+float CircleSprite::CenterDistance(CircleSprite *a, CircleSprite *b)
+{
+	return Utils::length(a->getPosition() - b->getPosition());
+}
+
+void CircleSprite::MassExchange(CircleSprite *a, CircleSprite *b)
+{
+	CircleSprite *donator, *receiver;
+	if (a->GetArea() < b->GetArea())
+	{
+		donator = a;
+		receiver = b;
+	}
+	else
+	{
+		donator = b;
+		receiver = a;
+	}
+
+	float areaSum = a->GetArea() + b->GetArea();
+	float cropRadius = a->GetRadius() + b->GetRadius() - CenterDistance(a, b);
+	donator->SetRadius(donator->GetRadius() - cropRadius);
+	receiver->SetArea(areaSum - donator->GetArea());
+}
+
 float CircleSprite::GetArea() const
 {
 	return M_PI * GetRadius() * GetRadius();

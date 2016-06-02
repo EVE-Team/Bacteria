@@ -168,26 +168,14 @@ void GameScene::EnemyPlayerCollision()
 					enemies->list.erase(it);
 				}
 				else
-				{
-					float areaSum = (*it)->GetArea() + player->GetArea();
-					float rx = (*it)->GetRadius() + player->GetRadius() - Utils::length(player->getPosition() - (*it)->getPosition());
-					(*it)->SetRadius((*it)->GetRadius() - rx);
-					player->SetArea(areaSum - (*it)->GetArea());
-				}
+					CircleSprite::MassExchange(*it, player);
 			}
 			else
 			{
 				if (player->GetRadius() < 5)
-				{
 					GameOver("lose.png");
-				}
 				else
-				{
-					float areaSum = (*it)->GetArea() + player->GetArea();
-					float rx = (*it)->GetRadius() + player->GetRadius() - Utils::length(player->getPosition() - (*it)->getPosition());
-					player->SetRadius(player->GetRadius() - rx);
-					(*it)->SetArea(areaSum - player->GetArea());
-				}
+					CircleSprite::MassExchange(*it, player);
 			}
 
 			return;
