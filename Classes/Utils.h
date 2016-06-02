@@ -37,4 +37,6 @@ public:
 
 	static void AddHighScore(float score);
 	static std::vector<float>& GetHighScores();
+
+	static cocos2d::Size GetVisibleSize();
 };

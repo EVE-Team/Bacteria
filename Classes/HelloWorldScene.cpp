@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "GameScene.h"
 #include "ScoreScene.h"
+#include "Utils.h"
 
 USING_NS_CC;
 
@@ -30,51 +31,47 @@ bool HelloWorld::init()
 	}
 
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-
 	auto background = Sprite::create("background.png");
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 
 	{
 		auto label = Sprite::create("title.png");
-		label->setPosition(Vec2(visibleSize.width / 2, 400));
+		label->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
 		addChild(label);
 	}
 
 	{
 		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(visibleSize.width / 2, 300));
+		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 300));
 		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
 	newGame = Label::createWithTTF("New game", "fonts/Marker Felt.ttf", 36);
-	newGame->setPosition(Vec2(visibleSize.width / 2, 300));
+	newGame->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 300));
 	addChild(newGame);
 
 	{
 		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(visibleSize.width / 2, 200));
+		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 200));
 		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
 	scores = Label::createWithTTF("Scores", "fonts/Marker Felt.ttf", 36);
-	scores->setPosition(Vec2(visibleSize.width / 2, 200));
+	scores->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 200));
 	addChild(scores);
 
 	{
 		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(visibleSize.width / 2, 100));
+		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
 		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
 	exit = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 36);
-	exit->setPosition(Vec2(visibleSize.width / 2, 100));
+	exit->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
 	addChild(exit);
 
 

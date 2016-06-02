@@ -35,10 +35,6 @@ bool GameScene::init()
 	}
 
 
-	visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-
 	node = Node::create();
 	node->setAnchorPoint(Vec2());
 	addChild(node);
@@ -67,12 +63,12 @@ bool GameScene::init()
 
 	massText = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);
 	massText->setAnchorPoint(Vec2(0, 0.5));
-	massText->setPosition(Vec2(40, visibleSize.height - 40));
+	massText->setPosition(Vec2(40, Utils::GetVisibleSize().height - 40));
 	UpdateInfo();
 	addChild(massText);
 
 	pause = Sprite::create("button_black_pause.png");
-	pause->setPosition(Vec2(visibleSize) - Vec2(40, 40));
+	pause->setPosition(Vec2(Utils::GetVisibleSize()) - Vec2(40, 40));
 	pause->setScale(0.6f);
 	addChild(pause);
 
@@ -186,8 +182,8 @@ void GameScene::update(float dt)
 
 	{
 		Rect camRect(
-			Vec2(player->getPosition().x - visibleSize.width / 2, player->getPosition().y - visibleSize.height / 2),
-			visibleSize
+			Vec2(player->getPosition().x - Utils::GetVisibleSize().width / 2, player->getPosition().y - Utils::GetVisibleSize().height / 2),
+			Utils::GetVisibleSize()
 		);
 
 		if (camRect.getMinX() < 0)

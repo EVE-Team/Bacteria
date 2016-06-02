@@ -91,3 +91,8 @@ std::vector<float>& Utils::GetHighScores()
 {
 	return highScores;
 }
+
+Size Utils::GetVisibleSize()
+{
+	return Director::getInstance()->getVisibleSize();
+}

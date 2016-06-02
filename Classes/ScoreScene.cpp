@@ -30,17 +30,13 @@ bool ScoreScene::init()
 	}
 
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-
 	auto background = Sprite::create("background.png");
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 
 	{
 		auto bg = Sprite::create("scores_bg.png");
-		bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+		bg->setPosition(Vec2(Utils::GetVisibleSize().width / 2, Utils::GetVisibleSize().height / 2));
 		addChild(bg);
 	}
 
@@ -52,18 +48,18 @@ bool ScoreScene::init()
 	}
 
 	scores = Label::createWithTTF(scoreText, "fonts/Marker Felt.ttf", 36);
-	scores->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
+	scores->setPosition(Vec2(Utils::GetVisibleSize().width / 2, Utils::GetVisibleSize().height / 2 + 50));
 	addChild(scores);
 
 	{
 		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(visibleSize.width / 2, 100));
+		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
 		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
 	menu = Label::createWithTTF("Back to menu", "fonts/Marker Felt.ttf", 36);
-	menu->setPosition(Vec2(visibleSize.width / 2, 100));
+	menu->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
 	addChild(menu);
 
 

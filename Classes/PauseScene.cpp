@@ -1,6 +1,7 @@
 #include "PauseScene.h"
 #include "HelloWorldScene.h"
 #include "GameScene.h"
+#include "Utils.h"
 
 USING_NS_CC;
 
@@ -46,55 +47,51 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 	}
 
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-
 	auto background = Sprite::create("background.png");
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 
 	auto labelNode = Sprite::create(label);
 	if (resumeAllowed)
-		labelNode->setPosition(Vec2(visibleSize.width / 2, 400));
+		labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
 	else
-		labelNode->setPosition(Vec2(visibleSize.width / 2, 350));
+		labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 350));
 	addChild(labelNode);
 
 	if (resumeAllowed)
 	{
 		{
 			auto btn = Sprite::create("button.png");
-			btn->setPosition(Vec2(visibleSize.width / 2, 300));
+			btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 300));
 			btn->setScaleX(1.2f);
 			addChild(btn);
 		}
 
 		resume = Label::createWithTTF("Resume", "fonts/Marker Felt.ttf", 36);
-		resume->setPosition(Vec2(visibleSize.width / 2, 300));
+		resume->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 300));
 		addChild(resume);
 	}
 
 	{
 		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(visibleSize.width / 2, 200));
+		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 200));
 		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
 	restart = Label::createWithTTF("Restart", "fonts/Marker Felt.ttf", 36);
-	restart->setPosition(Vec2(visibleSize.width / 2, 200));
+	restart->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 200));
 	addChild(restart);
 
 	{
 		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(visibleSize.width / 2, 100));
+		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
 		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
 	menu = Label::createWithTTF("Main menu", "fonts/Marker Felt.ttf", 36);
-	menu->setPosition(Vec2(visibleSize.width / 2, 100));
+	menu->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
 	addChild(menu);
 
 

@@ -15,5 +15,7 @@ public:
 	void AddEnemy(cocos2d::Vec2 const& pos);
 
 	std::list<Enemy*> list;
+
+private:
 	GameScene *gameScene;
 };

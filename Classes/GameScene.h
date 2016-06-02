@@ -11,7 +11,7 @@ class GameScene : public cocos2d::Layer
 public:
 	static cocos2d::Scene* createScene();
 
-	virtual bool init() override;
+	bool init() override;
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameScene);
@@ -25,7 +25,6 @@ public:
 	Planktons *planktons;
 	cocos2d::Label *massText;
 	cocos2d::Node *node;
-	cocos2d::Size visibleSize;
 	Enemies *enemies;
 
 	void EatPlankton();
