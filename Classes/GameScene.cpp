@@ -89,13 +89,9 @@ bool GameScene::init()
 		{
 			auto nodeLocation = location - node->getPosition();
 			Vec2 plMov = Utils::ResizeVec2(nodeLocation - player->getPosition(), Utils::bacteriaPushForce);
-			player->AddVelocity(plMov);
-
 			float plArea = player->GetArea() * Utils::planktonAreaMul;
-			player->SetArea(player->GetArea() - plArea);
+			PushCircleSprite(player, plMov, plArea);
 			UpdateInfo();
-			planktons->AddPlankton(player->getPosition(), plArea, player);
-			planktons->list.back()->AddVelocity(plMov * Utils::planktonPushForceMul);
 		}
 
 		return true;
@@ -230,4 +226,12 @@ void GameScene::UpdateInfo()
 bool GameScene::IsAlive(CircleSprite *sprite) const
 {
 	return (player == sprite) || std::any_of(enemies->list.begin(), enemies->list.end(), [sprite](Enemy *e){ return sprite == e; });
+}
+
+void GameScene::PushCircleSprite(CircleSprite *sprite, Vec2 const& velocity, float planktonArea)
+{
+	sprite->AddVelocity(velocity);
+	sprite->SetArea(sprite->GetArea() - planktonArea);
+	planktons->AddPlankton(sprite->getPosition(), planktonArea, sprite);
+	planktons->list.back()->AddVelocity(velocity * Utils::planktonPushForceMul);
 }

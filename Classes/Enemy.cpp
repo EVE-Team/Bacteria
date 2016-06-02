@@ -64,13 +64,8 @@ void Enemy::Tick(float dt)
 
 	if (vel != Vec2())
 	{
-		AddVelocity(vel);
-
+		gameScene->PushCircleSprite(this, vel, planktonArea);
 		reload = RELOAD_TIME;
-
-		SetArea(GetArea() - planktonArea);
-		gameScene->planktons->AddPlankton(getPosition(), planktonArea, this);
-		gameScene->planktons->list.back()->AddVelocity(vel * Utils::planktonPushForceMul);
 	}
 }
 

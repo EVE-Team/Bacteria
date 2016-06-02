@@ -34,6 +34,7 @@ public:
 	void AddScore(float score);
 	void UpdateInfo();
 	bool IsAlive(CircleSprite *sprite) const;
+	void PushCircleSprite(CircleSprite *sprite, cocos2d::Vec2 const& velocity, float planktonArea);
 
 private:
 	float score = 0;
