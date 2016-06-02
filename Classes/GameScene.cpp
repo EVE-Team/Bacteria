@@ -152,22 +152,45 @@ void GameScene::EnemyPlayerCollision()
 	{
 		float dist = Utils::length(player->getPosition() - (*it)->getPosition());
 
-		if (dist < player->GetRadius())
+		if (dist < player->GetRadius() + (*it)->GetRadius())
 		{
-			if (enemies->list.size() == 1)
-				GameOver("victory.png");
+			if (player->GetRadius() > (*it)->GetRadius())
+			{
+				if ((*it)->GetRadius() < 5)
+				{
+					if (enemies->list.size() == 1)
+						GameOver("victory.png");
 
-			player->SetArea(player->GetArea() + (*it)->GetArea());
-			AddScore((*it)->GetArea());
+					player->SetArea(player->GetArea() + (*it)->GetArea());
+					AddScore((*it)->GetArea());
 
-			enemies->removeChild(*it, true);
-			enemies->list.erase(it);
+					enemies->removeChild(*it, true);
+					enemies->list.erase(it);
+				}
+				else
+				{
+					float areaSum = (*it)->GetArea() + player->GetArea();
+					float rx = (*it)->GetRadius() + player->GetRadius() - Utils::length(player->getPosition() - (*it)->getPosition());
+					(*it)->SetRadius((*it)->GetRadius() - rx);
+					player->SetArea(areaSum - (*it)->GetArea());
+				}
+			}
+			else
+			{
+				if (player->GetRadius() < 5)
+				{
+					GameOver("lose.png");
+				}
+				else
+				{
+					float areaSum = (*it)->GetArea() + player->GetArea();
+					float rx = (*it)->GetRadius() + player->GetRadius() - Utils::length(player->getPosition() - (*it)->getPosition());
+					player->SetRadius(player->GetRadius() - rx);
+					(*it)->SetArea(areaSum - player->GetArea());
+				}
+			}
 
 			return;
-		}
-		else if (dist < (*it)->GetRadius())
-		{
-			GameOver("lose.png");
 		}
 	}
 }
