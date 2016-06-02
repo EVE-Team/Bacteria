@@ -6,7 +6,8 @@ class CircleSprite : public cocos2d::Sprite
 {
 public:
 	static float CenterDistance(CircleSprite *a, CircleSprite *b);
-	static bool MassExchange(CircleSprite *a, CircleSprite *b);
+	static bool MassExchange(CircleSprite *a, CircleSprite *b, float minDonatorRadius);
+	static bool MassExchangeExplicit(CircleSprite *donator, CircleSprite *receiver, float minDonatorRadius);
 
 	float GetRadius() const;
 	void SetRadius(float r);

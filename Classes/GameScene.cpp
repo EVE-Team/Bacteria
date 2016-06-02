@@ -106,15 +106,18 @@ void GameScene::EatPlankton()
 {
 	for (auto it = planktons->list.begin(); it != planktons->list.end(); ++it)
 	{
-		if ((*it)->Vulnerable(player) && Utils::length(player->getPosition() - (*it)->getPosition()) < player->GetRadius())
+		if ((*it)->Vulnerable(player) && CircleSprite::CenterDistance(*it, player) < (*it)->GetRadius() + player->GetRadius())
 		{
-			player->SetArea(player->GetArea() + (*it)->GetArea());
-			AddScore((*it)->GetArea());
+			if (!CircleSprite::MassExchangeExplicit(*it, player, 5))
+			{
+				player->SetArea(player->GetArea() + (*it)->GetArea());
+				AddScore((*it)->GetArea());
 
-			planktons->removeChild(*it, true);
-			planktons->list.erase(it);
+				planktons->removeChild(*it, true);
+				planktons->list.erase(it);
 
-			return;
+				return;
+			}
 		}
 		else
 		{
@@ -141,7 +144,7 @@ void GameScene::EnemyPlayerCollision()
 	{
 		if (CircleSprite::CenterDistance(player, *it) < player->GetRadius() + (*it)->GetRadius())
 		{
-			if (!CircleSprite::MassExchange(*it, player))
+			if (!CircleSprite::MassExchange(*it, player, Utils::minBacteriaRadius))
 			{
 				if (player->GetRadius() > (*it)->GetRadius())
 				{
