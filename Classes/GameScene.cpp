@@ -123,15 +123,18 @@ void GameScene::EatPlankton()
 		{
 			for (auto enemy : enemies->list)
 			{
-				if ((*it)->Vulnerable(enemy) && Utils::length(enemy->getPosition() - (*it)->getPosition()) < enemy->GetRadius())
+				if ((*it)->Vulnerable(enemy) && CircleSprite::CenterDistance(enemy, *it) < enemy->GetRadius() + (*it)->GetRadius())
 				{
-					enemy->SetArea(enemy->GetArea() + (*it)->GetArea());
-					UpdateInfo();
+					if (!CircleSprite::MassExchangeExplicit(*it, enemy, 5))
+					{
+						enemy->SetArea(enemy->GetArea() + (*it)->GetArea());
+						UpdateInfo();
 
-					planktons->removeChild(*it, true);
-					planktons->list.erase(it);
+						planktons->removeChild(*it, true);
+						planktons->list.erase(it);
 
-					return;
+						return;
+					}
 				}
 			}
 		}
@@ -156,11 +159,12 @@ void GameScene::EnemyPlayerCollision()
 
 					enemies->removeChild(*it, true);
 					enemies->list.erase(it);
+
+					return;
 				}
 				else
 					GameOver("lose.png");
 			}
-			return;
 		}
 	}
 }
