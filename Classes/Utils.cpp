@@ -28,9 +28,9 @@ Vec2 Utils::RandVec2()
 }
 
 const Size Utils::fieldSize = Size(2000, 2000);
-const float Utils::planktonAreaMul = 0.05;
+const float Utils::planktonAreaMul = 0.05f;
 const float Utils::bacteriaPushForce = 200;
-const float Utils::planktonPushForceMul = -0.1;
+const float Utils::planktonPushForceMul = -0.1f;
 const float Utils::minBacteriaRadius = 25;
 
 Utils::PolarVec2 Utils::LinearToPolar(Vec2 lin)
@@ -49,15 +49,15 @@ Utils::PolarVec2 Utils::LinearToPolar(Vec2 lin)
 	if (lin.x == 0)
 	{
 		if (lin.y > 0)
-			result.angle = M_PI / 2;
+			result.angle = (float)M_PI / 2;
 		else
-			result.angle = -M_PI / 2;
+			result.angle = -(float)M_PI / 2;
 	}
 	else
 	{
 		result.angle = atan(lin.y / lin.x);
 		if (lin.x < 0)
-			result.angle += M_PI;
+			result.angle += (float)M_PI;
 	}
 
 	return result;

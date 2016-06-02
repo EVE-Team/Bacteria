@@ -58,7 +58,7 @@ bool ScoreScene::init()
 	{
 		auto btn = Sprite::create("button.png");
 		btn->setPosition(Vec2(visibleSize.width / 2, 100));
-		btn->setScaleX(1.2);
+		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
@@ -73,7 +73,7 @@ bool ScoreScene::init()
 	{
 		auto location = touch->getLocation();
 
-		if (menu->boundingBox().containsPoint(location))
+		if (menu->getBoundingBox().containsPoint(location))
 		{
 			auto scene = HelloWorld::createScene();
 			Director::getInstance()->replaceScene(scene);

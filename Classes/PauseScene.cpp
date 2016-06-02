@@ -66,7 +66,7 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 		{
 			auto btn = Sprite::create("button.png");
 			btn->setPosition(Vec2(visibleSize.width / 2, 300));
-			btn->setScaleX(1.2);
+			btn->setScaleX(1.2f);
 			addChild(btn);
 		}
 
@@ -78,7 +78,7 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 	{
 		auto btn = Sprite::create("button.png");
 		btn->setPosition(Vec2(visibleSize.width / 2, 200));
-		btn->setScaleX(1.2);
+		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
@@ -89,7 +89,7 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 	{
 		auto btn = Sprite::create("button.png");
 		btn->setPosition(Vec2(visibleSize.width / 2, 100));
-		btn->setScaleX(1.2);
+		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
@@ -104,13 +104,13 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 	{
 		auto location = touch->getLocation();
 
-		if (resume && resume->boundingBox().containsPoint(location))
+		if (resume && resume->getBoundingBox().containsPoint(location))
 		{
 			Director::getInstance()->popScene();
 			return true;
 		}
 
-		if (restart->boundingBox().containsPoint(location))
+		if (restart->getBoundingBox().containsPoint(location))
 		{
 			Director::getInstance()->popScene();
 			auto scene = GameScene::createScene();
@@ -118,7 +118,7 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 			return true;
 		}
 
-		if (menu->boundingBox().containsPoint(location))
+		if (menu->getBoundingBox().containsPoint(location))
 		{
 			Director::getInstance()->popScene();
 			auto scene = HelloWorld::createScene();

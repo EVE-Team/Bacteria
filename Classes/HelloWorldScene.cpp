@@ -47,7 +47,7 @@ bool HelloWorld::init()
 	{
 		auto btn = Sprite::create("button.png");
 		btn->setPosition(Vec2(visibleSize.width / 2, 300));
-		btn->setScaleX(1.2);
+		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
@@ -58,7 +58,7 @@ bool HelloWorld::init()
 	{
 		auto btn = Sprite::create("button.png");
 		btn->setPosition(Vec2(visibleSize.width / 2, 200));
-		btn->setScaleX(1.2);
+		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
@@ -69,7 +69,7 @@ bool HelloWorld::init()
 	{
 		auto btn = Sprite::create("button.png");
 		btn->setPosition(Vec2(visibleSize.width / 2, 100));
-		btn->setScaleX(1.2);
+		btn->setScaleX(1.2f);
 		addChild(btn);
 	}
 
@@ -84,21 +84,21 @@ bool HelloWorld::init()
 	{
 		auto location = touch->getLocation();
 
-		if (newGame->boundingBox().containsPoint(location))
+		if (newGame->getBoundingBox().containsPoint(location))
 		{
 			auto scene = GameScene::createScene();
 			Director::getInstance()->replaceScene(scene);
 			return true;
 		}
 
-		if (scores->boundingBox().containsPoint(location))
+		if (scores->getBoundingBox().containsPoint(location))
 		{
 			auto scene = ScoreScene::createScene();
 			Director::getInstance()->replaceScene(scene);
 			return true;
 		}
 
-		if (exit->boundingBox().containsPoint(location))
+		if (exit->getBoundingBox().containsPoint(location))
 		{
 			Director::getInstance()->end();
 			return true;

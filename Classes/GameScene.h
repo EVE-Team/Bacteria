@@ -11,14 +11,14 @@ class GameScene : public cocos2d::Layer
 public:
 	static cocos2d::Scene* createScene();
 
-	virtual bool init();
+	virtual bool init() override;
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameScene);
 
-	virtual void update(float dt) override;
-	virtual void onEnter() override;
-	virtual void onExit() override;
+	void update(float dt) override;
+	void onEnter() override;
+	void onExit() override;
 
 	cocos2d::Sprite *pause;
 	Player *player;

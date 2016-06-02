@@ -74,4 +74,4 @@ void Enemy::Tick(float dt)
 	}
 }
 
-const float Enemy::RELOAD_TIME = 0.4;
+const float Enemy::RELOAD_TIME = 0.4f;

@@ -73,7 +73,7 @@ bool GameScene::init()
 
 	pause = Sprite::create("button_black_pause.png");
 	pause->setPosition(Vec2(visibleSize) - Vec2(40, 40));
-	pause->setScale(0.6);
+	pause->setScale(0.6f);
 	addChild(pause);
 
 
@@ -83,7 +83,7 @@ bool GameScene::init()
 	{
 		auto location = touch->getLocation();
 
-		if (pause->boundingBox().containsPoint(location))
+		if (pause->getBoundingBox().containsPoint(location))
 		{
 			auto scene = PauseScene::createScene();
 			Director::getInstance()->pushScene(scene);
