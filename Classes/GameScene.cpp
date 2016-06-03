@@ -104,7 +104,7 @@ bool GameScene::init()
 
 void GameScene::EatPlankton()
 {
-	for (auto it = planktons->list.begin(); it != planktons->list.end(); ++it)
+	for (auto it = planktons->list.begin(); it != planktons->list.end();)
 	{
 		if ((*it)->Vulnerable(player) && CircleSprite::CenterDistance(*it, player) < (*it)->GetRadius() + player->GetRadius())
 		{
@@ -114,15 +114,20 @@ void GameScene::EatPlankton()
 				AddScore((*it)->GetArea());
 
 				planktons->removeChild(*it, true);
-				planktons->list.erase(it);
-
-				return;
+				planktons->list.erase(it++);
 			}
+			else
+				++it;
 		}
 		else
 		{
+			bool planktonKilled = false;
+
 			for (auto enemy : enemies->list)
 			{
+				if (planktonKilled)
+					break;
+
 				if ((*it)->Vulnerable(enemy) && CircleSprite::CenterDistance(enemy, *it) < enemy->GetRadius() + (*it)->GetRadius())
 				{
 					if (!CircleSprite::MassExchangeExplicit(*it, enemy, 5))
@@ -131,20 +136,24 @@ void GameScene::EatPlankton()
 						UpdateInfo();
 
 						planktons->removeChild(*it, true);
-						planktons->list.erase(it);
-
-						return;
+						planktons->list.erase(it++);
+						planktonKilled = true;
 					}
 				}
 			}
+
+			if (!planktonKilled)
+				++it;
 		}
 	}
 }
 
 void GameScene::EnemyPlayerCollision()
 {
-	for (auto it = enemies->list.begin(); it != enemies->list.end(); ++it)
+	for (auto it = enemies->list.begin(); it != enemies->list.end();)
 	{
+		bool enemyKilled = false;
+
 		if (CircleSprite::CenterDistance(player, *it) < player->GetRadius() + (*it)->GetRadius())
 		{
 			if (!CircleSprite::MassExchange(*it, player, Utils::minBacteriaRadius))
@@ -158,14 +167,16 @@ void GameScene::EnemyPlayerCollision()
 					AddScore((*it)->GetArea());
 
 					enemies->removeChild(*it, true);
-					enemies->list.erase(it);
-
-					return;
+					enemies->list.erase(it++);
+					enemyKilled = true;
 				}
 				else
 					GameOver("lose.png");
 			}
 		}
+
+		if (!enemyKilled)
+			++it;
 	}
 }
 
