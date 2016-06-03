@@ -27,7 +27,7 @@ bool Planktons::init(GameScene *gameScene)
 
 	for (int i = 0; i < 250; ++i)
 	{
-		AddPlankton(Utils::RandVec2());
+		AddPlankton(Utils::RandVec2(), 500, nullptr);
 	}
 
 	return true;

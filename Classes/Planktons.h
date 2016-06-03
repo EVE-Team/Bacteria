@@ -13,7 +13,7 @@ public:
 
 	bool init(GameScene *gameScene);
 	void Tick(float dt);
-	void AddPlankton(cocos2d::Vec2 pos, float area = 500, CircleSprite *owner = nullptr);
+	void AddPlankton(cocos2d::Vec2 pos, float area, CircleSprite *owner);
 
 	std::list<Plankton*> list;
 

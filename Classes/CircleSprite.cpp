@@ -33,6 +33,10 @@ bool CircleSprite::MassExchangeExplicit(CircleSprite *donator, CircleSprite *rec
 
 	float areaSum = donator->GetArea() + receiver->GetArea();
 	float cropRadius = donator->GetRadius() + receiver->GetRadius() - CenterDistance(donator, receiver);
+
+	if (donator->GetRadius() - cropRadius < minDonatorRadius)
+		return false;
+
 	donator->SetRadius(donator->GetRadius() - cropRadius);
 	receiver->SetArea(areaSum - donator->GetArea());
 
@@ -46,6 +50,7 @@ float CircleSprite::GetArea() const
 
 void CircleSprite::SetArea(float a)
 {
+	assert(a > 0);
 	SetRadius(sqrt(a / M_PI));
 }
 
@@ -103,15 +108,20 @@ Vec2 CircleSprite::GetVelocity() const
 
 float CircleSprite::GetRadius() const
 {
-	return GetSpriteRadius() * getScale();
+	float result = GetSpriteRadius() * getScale();
+	assert(result > 0);
+	return result;
 }
 
 void CircleSprite::SetRadius(float r)
 {
+	assert(r > 0);
 	setScale(r / GetSpriteRadius());
 }
 
 float CircleSprite::GetSpriteRadius() const
 {
-	return getContentSize().width / 2;
+	float result = getContentSize().width / 2;
+	assert(result > 0);
+	return result;
 }
