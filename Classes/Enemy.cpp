@@ -36,7 +36,7 @@ void Enemy::Tick(float dt)
 
 	Vec2 vel;
 
-	if (CircleSprite::CenterDistance(player, this) < 250)
+	if (CircleSprite::CenterDistance(player, this) < 300)
 	{
 		vel = Utils::ResizeVec2(player->getPosition() - getPosition(), Utils::bacteriaPushForce);
 		if (player->GetArea() > GetArea())
@@ -44,21 +44,27 @@ void Enemy::Tick(float dt)
 	}
 	else
 	{
-		if (Utils::length(GetVelocity()) < 0.4 * Utils::bacteriaPushForce)
+		if (Utils::length(GetVelocity()) < 0.5 * Utils::bacteriaPushForce)
 		{
 			auto planktonsList = &(gameScene->planktons->list);
-			auto minIt = std::min_element(planktonsList->begin(), planktonsList->end(),
-				[this](Plankton *a, Plankton *b)
+
+			std::vector<Plankton*> vulnerablePlankton(planktonsList->size());
+			auto vulnerablePlanktonEnd = std::copy_if(planktonsList->begin(), planktonsList->end(), vulnerablePlankton.begin(),
+				[this](Plankton* p){ return p->Vulnerable(this); });
+			vulnerablePlankton.erase(vulnerablePlanktonEnd, vulnerablePlankton.end());
+
+			if (!vulnerablePlankton.empty())
 			{
-				bool closerResult = CircleSprite::CenterDistance(this, a) < CircleSprite::CenterDistance(this, b);
+				std::vector<Plankton*> bigPlankton(vulnerablePlankton.size());
+				auto bigPlanktonLast = std::copy_if(vulnerablePlankton.begin(), vulnerablePlankton.end(), bigPlankton.begin(),
+					[planktonArea, this](Plankton* p){ return p->GetArea() > planktonArea + 100 && CircleSprite::CenterDistance(p, this) < 50; });
+				bigPlankton.erase(bigPlanktonLast, bigPlankton.end());
 
-				if (!b->Vulnerable(this))
-					return a->Vulnerable(this) ? true : closerResult;
-				else
-					return a->Vulnerable(this) ? closerResult : false;
-			});
-
-			vel = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), Utils::bacteriaPushForce);
+				std::vector<Plankton*> &findSource = !bigPlankton.empty() ? bigPlankton : vulnerablePlankton;
+				auto minIt = std::min_element(findSource.begin(), findSource.end(),
+					[this](Plankton *a, Plankton *b){ return CircleSprite::CenterDistance(this, a) < CircleSprite::CenterDistance(this, b); });
+				vel = Utils::ResizeVec2((*minIt)->getPosition() - getPosition(), Utils::bacteriaPushForce);
+			}
 		}
 	}
 
