@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "ScoreScene.h"
 #include "Utils.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -83,6 +84,7 @@ bool HelloWorld::init()
 
 		if (newGame->getBoundingBox().containsPoint(location))
 		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
 			auto scene = GameScene::createScene();
 			Director::getInstance()->replaceScene(scene);
 			return true;
@@ -90,6 +92,7 @@ bool HelloWorld::init()
 
 		if (scores->getBoundingBox().containsPoint(location))
 		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
 			auto scene = ScoreScene::createScene();
 			Director::getInstance()->replaceScene(scene);
 			return true;
@@ -97,6 +100,7 @@ bool HelloWorld::init()
 
 		if (exit->getBoundingBox().containsPoint(location))
 		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
 			Director::getInstance()->end();
 			return true;
 		}

@@ -1,6 +1,7 @@
 #include "ScoreScene.h"
 #include "HelloWorldScene.h"
 #include "Utils.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -48,7 +49,7 @@ bool ScoreScene::init()
 	}
 
 	scores = Label::createWithTTF(scoreText, "fonts/Marker Felt.ttf", 36);
-	scores->setPosition(Vec2(Utils::GetVisibleSize().width / 2, Utils::GetVisibleSize().height / 2 + 50));
+	scores->setPosition(Vec2(Utils::GetVisibleSize().width / 2, Utils::GetVisibleSize().height / 2 + 25));
 	addChild(scores);
 
 	{
@@ -71,6 +72,7 @@ bool ScoreScene::init()
 
 		if (menu->getBoundingBox().containsPoint(location))
 		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
 			auto scene = HelloWorld::createScene();
 			Director::getInstance()->replaceScene(scene);
 			return true;

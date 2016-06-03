@@ -6,6 +6,7 @@
 #include "Plankton.h"
 #include "Enemies.h"
 #include "Enemy.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -81,6 +82,7 @@ bool GameScene::init()
 
 		if (pause->getBoundingBox().containsPoint(location))
 		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
 			auto scene = PauseScene::createScene();
 			Director::getInstance()->pushScene(scene);
 			return true;
@@ -115,6 +117,8 @@ void GameScene::EatPlankton()
 
 				planktons->removeChild(*it, true);
 				planktons->list.erase(it++);
+
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3");
 			}
 			else
 				++it;
@@ -137,6 +141,7 @@ void GameScene::EatPlankton()
 
 						planktons->removeChild(*it, true);
 						planktons->list.erase(it++);
+
 						planktonKilled = true;
 					}
 				}
@@ -158,10 +163,15 @@ void GameScene::EnemyPlayerCollision()
 		{
 			if (!CircleSprite::MassExchange(*it, player, Utils::minBacteriaRadius))
 			{
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX312.mp3");
+
 				if (player->GetRadius() > (*it)->GetRadius())
 				{
 					if (enemies->list.size() == 1)
+					{
+						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX320.mp3");
 						GameOver("victory.png");
+					}
 
 					player->SetArea(player->GetArea() + (*it)->GetArea());
 					AddScore((*it)->GetArea());
@@ -252,4 +262,7 @@ void GameScene::PushCircleSprite(CircleSprite *sprite, Vec2 const& velocity, flo
 	sprite->SetArea(sprite->GetArea() - planktonArea);
 	planktons->AddPlankton(sprite->getPosition(), planktonArea, sprite);
 	planktons->list.back()->AddVelocity(velocity * Utils::planktonPushForceMul);
+
+	if (sprite == player)
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3");
 }
