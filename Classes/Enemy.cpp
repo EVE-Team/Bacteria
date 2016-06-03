@@ -44,7 +44,7 @@ void Enemy::Tick(float dt)
 	}
 	else
 	{
-		if (Utils::length(GetVelocity()) < 0.5 * Utils::bacteriaPushForce)
+		if (Utils::length(GetVelocity()) < 0.2 * Utils::bacteriaPushForce)
 		{
 			auto planktonsList = &(gameScene->planktons->list);
 
@@ -57,7 +57,7 @@ void Enemy::Tick(float dt)
 			{
 				std::vector<Plankton*> bigPlankton(vulnerablePlankton.size());
 				auto bigPlanktonLast = std::copy_if(vulnerablePlankton.begin(), vulnerablePlankton.end(), bigPlankton.begin(),
-					[planktonArea, this](Plankton* p){ return p->GetArea() > planktonArea + 100 && CircleSprite::CenterDistance(p, this) < 50; });
+					[planktonArea, this](Plankton* p){ return p->GetArea() > planktonArea + 100 && CircleSprite::CenterDistance(p, this) < 350; });
 				bigPlankton.erase(bigPlanktonLast, bigPlankton.end());
 
 				std::vector<Plankton*> &findSource = !bigPlankton.empty() ? bigPlankton : vulnerablePlankton;
