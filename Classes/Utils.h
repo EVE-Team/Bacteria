@@ -43,13 +43,14 @@ public:
 	template <typename T>
 	static T* CreateCocosObject(std::function<T*()> const& createFunc,
 		std::function<bool(T*)> const& initFunc,
-		std::function<bool(T*)> const& afterInitFunc = [](T*){ return true; })
+		std::function<void(T*)> const& afterInitFunc = [](T*){})
 	{
 		T *result = createFunc();
 
-		if (result && initFunc(result) && afterInitFunc(result))
+		if (result && initFunc(result))
 		{
 			result->autorelease();
+			afterInitFunc(result);
 			return result;
 		}
 
