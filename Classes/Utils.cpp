@@ -75,21 +75,45 @@ Vec2 Utils::ResizeVec2(Vec2 vec, float len)
 	return PolarToLinear(pv);
 }
 
-static std::vector<float> highScores;
+static std::vector<float> ReadHighScores()
+{
+	std::vector<float> result;
+	result.resize(UserDefault::getInstance()->getIntegerForKey("hsCount", 0));
+
+	for (size_t i = 0; i < result.size(); ++i)
+	{
+		result[i] = UserDefault::getInstance()->getFloatForKey(("hsValue" + Utils::to_string(i)).c_str());
+	}
+	return result;
+}
+
+static void SaveHighScores(std::vector<float> const& highScores)
+{
+	UserDefault::getInstance()->setIntegerForKey("hsCount", highScores.size());
+
+	for (size_t i = 0; i < highScores.size(); ++i)
+	{
+		UserDefault::getInstance()->setFloatForKey(("hsValue" + Utils::to_string(i)).c_str(), highScores[i]);
+	}
+}
 
 void Utils::AddHighScore(float score)
 {
+	auto highScores = ReadHighScores();
+
 	highScores.push_back(score);
 	std::sort(highScores.begin(), highScores.end(), [](float a, float b){ return a > b; });
 	if (highScores.size() > 5)
 	{
 		highScores.pop_back();
 	}
+
+	SaveHighScores(highScores);
 }
 
-std::vector<float>& Utils::GetHighScores()
+std::vector<float> Utils::GetHighScores()
 {
-	return highScores;
+	return ReadHighScores();
 }
 
 Size Utils::GetVisibleSize()
