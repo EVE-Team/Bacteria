@@ -181,7 +181,10 @@ void GameScene::EnemyPlayerCollision()
 					enemyKilled = true;
 				}
 				else
+				{
+					CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("GAMEOVER.ogg");
 					GameOver("lose.png");
+				}
 			}
 		}
 

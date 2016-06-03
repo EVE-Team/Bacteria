@@ -104,6 +104,7 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 
 		if (resume && resume->getBoundingBox().containsPoint(location))
 		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
 			Director::getInstance()->popScene();
 			return true;
