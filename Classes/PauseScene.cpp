@@ -8,17 +8,8 @@ USING_NS_CC;
 
 Scene* PauseScene::createScene(std::string const& label, bool resumeAllowed)
 {
-	// 'scene' is an autorelease object
-	auto scene = Scene::create();
-
-	// 'layer' is an autorelease object
-	auto layer = PauseScene::create(label, resumeAllowed);
-
-	// add layer as a child to scene
-	scene->addChild(layer);
-
-	// return the scene
-	return scene;
+	return Utils::CreateScene<PauseScene>(
+		[label, resumeAllowed](){ return PauseScene::create(label, resumeAllowed); });
 }
 
 PauseScene* PauseScene::create(std::string const& label, bool resumeAllowed)

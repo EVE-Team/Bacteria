@@ -57,4 +57,19 @@ public:
 		delete result;
 		return nullptr;
 	}
+
+	template <typename T>
+	static cocos2d::Scene* CreateScene(std::function<T*()> const& createFunc = [](){ return T::create(); })
+	{
+		cocos2d::Scene *scene = cocos2d::Scene::create();
+		if (!scene)
+			return nullptr;
+
+		T *layer = createFunc();
+		if (!layer)
+			return nullptr;
+
+		scene->addChild(layer);
+		return scene;
+	}
 };
