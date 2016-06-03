@@ -6,14 +6,9 @@ USING_NS_CC;
 
 Planktons* Planktons::create(GameScene *gameScene)
 {
-	Planktons *result = new (std::nothrow) Planktons();
-	if (result && result->init(gameScene))
-	{
-		result->autorelease();
-		return result;
-	}
-	CC_SAFE_DELETE(result);
-	return nullptr;
+	return Utils::CreateCocosObject<Planktons>(
+		[](){ return new (std::nothrow) Planktons(); },
+		[gameScene](Planktons *s){ return s->init(gameScene); });
 }
 
 bool Planktons::init(GameScene *gameScene)

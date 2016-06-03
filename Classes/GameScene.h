@@ -11,11 +11,8 @@ class GameScene : public cocos2d::Layer
 {
 public:
 	static cocos2d::Scene* createScene();
-
+	static GameScene* create();
 	bool init() override;
-
-	// implement the "static create()" method manually
-	CREATE_FUNC(GameScene);
 
 	void update(float dt) override;
 	void onEnter() override;

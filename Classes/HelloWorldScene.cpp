@@ -21,6 +21,13 @@ Scene* HelloWorld::createScene()
 	return scene;
 }
 
+HelloWorld* HelloWorld::create()
+{
+	return Utils::CreateCocosObject<HelloWorld>(
+		[](){ return new (std::nothrow) HelloWorld(); },
+		[](HelloWorld *s){ return s->init(); });
+}
+
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
 {

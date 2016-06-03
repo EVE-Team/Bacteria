@@ -6,11 +6,8 @@ class HelloWorld : public cocos2d::Layer
 {
 public:
 	static cocos2d::Scene* createScene();
-
+	static HelloWorld* create();
 	bool init() override;
-
-	// implement the "static create()" method manually
-	CREATE_FUNC(HelloWorld);
 
 private:
 	cocos2d::Label *newGame;

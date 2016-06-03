@@ -25,6 +25,13 @@ Scene* GameScene::createScene()
 	return scene;
 }
 
+GameScene* GameScene::create()
+{
+	return Utils::CreateCocosObject<GameScene>(
+		[](){ return new (std::nothrow) GameScene(); },
+		[](GameScene *s){ return s->init(); });
+}
+
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {

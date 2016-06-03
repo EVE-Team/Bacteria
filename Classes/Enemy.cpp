@@ -9,15 +9,10 @@ USING_NS_CC;
 
 Enemy* Enemy::create(GameScene *gameScene, Texture2D *texture)
 {
-	Enemy *sprite = new (std::nothrow) Enemy();
-	if (sprite && sprite->initWithTexture(texture))
-	{
-		sprite->autorelease();
-		sprite->gameScene = gameScene;
-		return sprite;
-	}
-	CC_SAFE_DELETE(sprite);
-	return nullptr;
+	return Utils::CreateCocosObject<Enemy>(
+		[](){ return new (std::nothrow) Enemy(); },
+		[texture](Enemy *s){ return s->initWithTexture(texture); },
+		[gameScene](Enemy *s){ s->gameScene = gameScene; return true; });
 }
 
 void Enemy::Tick(float dt)

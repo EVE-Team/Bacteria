@@ -23,18 +23,9 @@ Scene* PauseScene::createScene(std::string const& label, bool resumeAllowed)
 
 PauseScene* PauseScene::create(std::string const& label, bool resumeAllowed)
 {
-	PauseScene *pRet = new(std::nothrow) PauseScene();
-	if (pRet && pRet->init(label, resumeAllowed))
-	{
-		pRet->autorelease();
-		return pRet;
-	}
-	else
-	{
-		delete pRet;
-		pRet = nullptr;
-		return nullptr;
-	}
+	return Utils::CreateCocosObject<PauseScene>(
+		[](){ return new (std::nothrow) PauseScene(); },
+		[label, resumeAllowed](PauseScene *s){ return s->init(label, resumeAllowed); });
 }
 
 // on "init" you need to initialize your instance

@@ -6,11 +6,8 @@ class ScoreScene : public cocos2d::Layer
 {
 public:
 	static cocos2d::Scene* createScene();
-
+	static ScoreScene* create();
 	bool init() override;
-
-	// implement the "static create()" method manually
-	CREATE_FUNC(ScoreScene);
 
 private:
 	cocos2d::Label *menu;

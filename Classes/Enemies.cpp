@@ -6,14 +6,9 @@ USING_NS_CC;
 
 Enemies* Enemies::create(GameScene *gameScene)
 {
-	Enemies *result = new (std::nothrow) Enemies();
-	if (result && result->init(gameScene))
-	{
-		result->autorelease();
-		return result;
-	}
-	CC_SAFE_DELETE(result);
-	return nullptr;
+	return Utils::CreateCocosObject<Enemies>(
+		[](){ return new (std::nothrow) Enemies(); },
+		[gameScene](Enemies *s){ return s->init(gameScene); });
 }
 
 bool Enemies::init(GameScene *gameScene)

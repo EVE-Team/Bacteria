@@ -20,6 +20,13 @@ Scene* ScoreScene::createScene()
 	return scene;
 }
 
+ScoreScene* ScoreScene::create()
+{
+	return Utils::CreateCocosObject<ScoreScene>(
+		[](){ return new (std::nothrow) ScoreScene(); },
+		[](ScoreScene *s){ return s->init(); });
+}
+
 // on "init" you need to initialize your instance
 bool ScoreScene::init()
 {

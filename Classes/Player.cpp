@@ -1,16 +1,11 @@
 #include "Player.h"
-#include <math.h>
+#include "Utils.h"
 
 USING_NS_CC;
 
 Player* Player::create()
 {
-	Player *sprite = new (std::nothrow) Player();
-	if (sprite && sprite->initWithFile("Player.png"))
-	{
-		sprite->autorelease();
-		return sprite;
-	}
-	CC_SAFE_DELETE(sprite);
-	return nullptr;
+	return Utils::CreateCocosObject<Player>(
+		[](){ return new (std::nothrow) Player(); },
+		[](Player *s){ return s->initWithFile("Player.png"); });
 }

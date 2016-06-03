@@ -39,4 +39,21 @@ public:
 	static std::vector<float> GetHighScores();
 
 	static cocos2d::Size GetVisibleSize();
+
+	template <typename T>
+	static T* CreateCocosObject(std::function<T*()> const& createFunc,
+		std::function<bool(T*)> const& initFunc,
+		std::function<bool(T*)> const& afterInitFunc = [](T*){ return true; })
+	{
+		T *result = createFunc();
+
+		if (result && initFunc(result) && afterInitFunc(result))
+		{
+			result->autorelease();
+			return result;
+		}
+
+		delete result;
+		return nullptr;
+	}
 };

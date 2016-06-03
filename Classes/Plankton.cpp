@@ -1,18 +1,14 @@
 #include "Plankton.h"
 #include "GameScene.h"
+#include "Utils.h"
 
 USING_NS_CC;
 
 Plankton* Plankton::create(GameScene *gameScene, Texture2D *texture, CircleSprite *owner)
 {
-	Plankton *sprite = new (std::nothrow) Plankton(gameScene, owner);
-	if (sprite && sprite->initWithTexture(texture))
-	{
-		sprite->autorelease();
-		return sprite;
-	}
-	CC_SAFE_DELETE(sprite);
-	return nullptr;
+	return Utils::CreateCocosObject<Plankton>(
+		[gameScene, owner](){ return new (std::nothrow) Plankton(gameScene, owner); },
+		[texture](Plankton *s){ return s->initWithTexture(texture); });
 }
 
 Plankton::Plankton(GameScene *gameScene, CircleSprite *owner)
