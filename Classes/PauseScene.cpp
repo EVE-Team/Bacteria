@@ -1,5 +1,5 @@
 #include "PauseScene.h"
-#include "HelloWorldScene.h"
+#include "MenuScene.h"
 #include "GameScene.h"
 #include "Utils.h"
 #include "SimpleAudioEngine.h"
@@ -105,7 +105,7 @@ bool PauseScene::init(std::string const& label, bool resumeAllowed)
 		{
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
 			Director::getInstance()->popScene();
-			auto scene = HelloWorld::createScene();
+			auto scene = MenuScene::createScene();
 			Director::getInstance()->replaceScene(scene);
 			return true;
 		}

@@ -16,7 +16,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Enemies.cpp \
                    ../../Classes/Enemy.cpp \
                    ../../Classes/GameScene.cpp \
-                   ../../Classes/HelloWorldScene.cpp \
+                   ../../Classes/MenuScene.cpp \
                    ../../Classes/PauseScene.cpp \
                    ../../Classes/Plankton.cpp \
                    ../../Classes/Planktons.cpp \

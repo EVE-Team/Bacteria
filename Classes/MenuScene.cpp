@@ -1,4 +1,4 @@
-#include "HelloWorldScene.h"
+#include "MenuScene.h"
 #include "GameScene.h"
 #include "ScoreScene.h"
 #include "Utils.h"
@@ -6,20 +6,20 @@
 
 USING_NS_CC;
 
-Scene* HelloWorld::createScene()
+Scene* MenuScene::createScene()
 {
-	return Utils::CreateScene<HelloWorld>();
+	return Utils::CreateScene<MenuScene>();
 }
 
-HelloWorld* HelloWorld::create()
+MenuScene* MenuScene::create()
 {
-	return Utils::CreateCocosObject<HelloWorld>(
-		[](){ return new (std::nothrow) HelloWorld(); },
-		[](HelloWorld *s){ return s->init(); });
+	return Utils::CreateCocosObject<MenuScene>(
+		[](){ return new (std::nothrow) MenuScene(); },
+		[](MenuScene *s){ return s->init(); });
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool MenuScene::init()
 {
 	//////////////////////////////
 	// 1. super init first

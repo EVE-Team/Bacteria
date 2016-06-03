@@ -1,5 +1,5 @@
 #include "ScoreScene.h"
-#include "HelloWorldScene.h"
+#include "MenuScene.h"
 #include "Utils.h"
 #include "SimpleAudioEngine.h"
 
@@ -70,7 +70,7 @@ bool ScoreScene::init()
 		if (menu->getBoundingBox().containsPoint(location))
 		{
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
-			auto scene = HelloWorld::createScene();
+			auto scene = MenuScene::createScene();
 			Director::getInstance()->replaceScene(scene);
 			return true;
 		}

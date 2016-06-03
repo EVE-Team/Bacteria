@@ -2,11 +2,11 @@
 
 #include "cocos2d.h"
 
-class HelloWorld : public cocos2d::Layer
+class MenuScene : public cocos2d::Layer
 {
 public:
 	static cocos2d::Scene* createScene();
-	static HelloWorld* create();
+	static MenuScene* create();
 	bool init() override;
 
 private:
