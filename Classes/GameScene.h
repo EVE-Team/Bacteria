@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "GameProgress.h"
 
 class Player;
 class Planktons;
@@ -10,9 +11,9 @@ class CircleSprite;
 class GameScene : public cocos2d::Layer
 {
 public:
-	static cocos2d::Scene* createScene();
-	static GameScene* create();
-	bool init() override;
+	static cocos2d::Scene* createScene(GameProgress const& progress);
+	static GameScene* create(GameProgress const& progress);
+	bool init(GameProgress const& progress);
 
 	void update(float dt) override;
 	void onEnter() override;
@@ -27,7 +28,6 @@ public:
 
 	void EatPlankton();
 	void EnemyPlayerCollision();
-	void GameOver(std::string const& reason);
 	void AddScore(float score);
 	void DelScore(float score);
 	void UpdateInfo();
@@ -35,5 +35,6 @@ public:
 	void PushCircleSprite(CircleSprite *sprite, cocos2d::Vec2 const& velocity, float planktonArea);
 
 private:
-	float score = 0;
+	GameProgress startProgress;
+	float score;
 };

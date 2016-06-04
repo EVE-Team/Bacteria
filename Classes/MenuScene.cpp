@@ -31,7 +31,7 @@ bool MenuScene::init()
 
 
 	AddButton("New game", 300, [](){
-		auto scene = GameScene::createScene();
+		auto scene = GameScene::createScene(GameProgress());
 		Director::getInstance()->replaceScene(scene);
 	});
 

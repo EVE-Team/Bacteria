@@ -7,25 +7,35 @@
 #include "Enemies.h"
 #include "Enemy.h"
 #include "SimpleAudioEngine.h"
+#include "GameData.h"
+#include "WinScene.h"
+#include "LoseScene.h"
+#include "EndScene.h"
 
 USING_NS_CC;
 
-Scene* GameScene::createScene()
+Scene* GameScene::createScene(GameProgress const& progress)
 {
-	return Utils::CreateScene<GameScene>();
+	return Utils::CreateScene<GameScene>([&progress](){ return GameScene::create(progress); });
 }
 
-GameScene* GameScene::create()
+GameScene* GameScene::create(GameProgress const& progress)
 {
 	return Utils::CreateCocosObject<GameScene>(
 		[](){ return new (std::nothrow) GameScene(); },
-		[](GameScene *s){ return s->init(); });
+		[&progress](GameScene *s){ return s->init(progress); });
 }
 
-bool GameScene::init()
+bool GameScene::init(GameProgress const& progress)
 {
 	if ( !Layer::init() )
 		return false;
+
+
+	const GameData gameData = GameData::GetLevelData(progress.level);
+
+	score = progress.score;
+	startProgress = progress;
 
 
 	node = Node::create();
@@ -170,8 +180,18 @@ void GameScene::EnemyPlayerCollision()
 					if (enemies->list.size() == 1)
 					{
 						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX320.mp3");
-						Utils::AddHighScore(score);
-						GameOver("victory.png");
+
+						if (startProgress.level < GameData::levelCount)
+						{
+							auto scene = WinScene::createScene(startProgress, score);
+							Director::getInstance()->replaceScene(scene);
+						}
+						else
+						{
+							Utils::AddHighScore(score);
+							auto scene = EndScene::createScene();
+							Director::getInstance()->replaceScene(scene);
+						}
 					}
 
 					player->SetArea(player->GetArea() + (*it)->GetArea());
@@ -186,7 +206,9 @@ void GameScene::EnemyPlayerCollision()
 				{
 					CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("GAMEOVER.ogg");
 					DelScore(player->GetArea() * Utils::enemyDelScoreMul);
-					GameOver("lose.png");
+
+					auto scene = LoseScene::createScene(startProgress);
+					Director::getInstance()->replaceScene(scene);
 				}
 			}
 			else
@@ -250,12 +272,6 @@ void GameScene::onExit()
 {
 	unscheduleUpdate();
 	Layer::onExit();
-}
-
-void GameScene::GameOver(std::string const& reason)
-{
-	auto scene = PauseScene::createScene(reason, false);
-	Director::getInstance()->pushScene(scene);
 }
 
 void GameScene::AddScore(float score)

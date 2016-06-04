@@ -5,39 +5,31 @@
 
 USING_NS_CC;
 
-Scene* PauseScene::createScene(std::string const& label, bool resumeAllowed)
+Scene* PauseScene::createScene()
 {
-	return Utils::CreateScene<PauseScene>(
-		[label, resumeAllowed](){ return PauseScene::create(label, resumeAllowed); });
+	return Utils::CreateScene<PauseScene>();
 }
 
-PauseScene* PauseScene::create(std::string const& label, bool resumeAllowed)
+PauseScene* PauseScene::create()
 {
 	return Utils::CreateCocosObject<PauseScene>(
 		[](){ return new (std::nothrow) PauseScene(); },
-		[label, resumeAllowed](PauseScene *s){ return s->init(label, resumeAllowed); });
+		[](PauseScene *s){ return s->init(); });
 }
 
-bool PauseScene::init(std::string const& label, bool resumeAllowed)
+bool PauseScene::init()
 {
 	if (!ButtonScene::init())
 		return false;
 
 
-	auto labelNode = Sprite::create(label);
-	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, resumeAllowed ? 400 : 350));
+	auto labelNode = Sprite::create("pause.png");
+	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
 	addChild(labelNode);
 
 
-	if (resumeAllowed)
-		AddButton("Resume", 300, [](){
-			Director::getInstance()->popScene();
-		});
-
-	AddButton("Restart", 200, [](){
+	AddButton("Resume", 250, [](){
 		Director::getInstance()->popScene();
-		auto scene = GameScene::createScene();
-		Director::getInstance()->replaceScene(scene);
 	});
 
 	AddButton("Main menu", 100, [](){

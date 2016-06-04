@@ -2,10 +2,10 @@
 
 #include "ButtonScene.h"
 
-class PauseScene : public ButtonScene
+class EndScene : public ButtonScene
 {
 public:
 	static cocos2d::Scene* createScene();
-	static PauseScene* create();
+	static EndScene* create();
 	bool init() override;
 };
