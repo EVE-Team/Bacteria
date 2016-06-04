@@ -2,7 +2,6 @@
 #include "MenuScene.h"
 #include "GameScene.h"
 #include "Utils.h"
-#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -19,100 +18,33 @@ PauseScene* PauseScene::create(std::string const& label, bool resumeAllowed)
 		[label, resumeAllowed](PauseScene *s){ return s->init(label, resumeAllowed); });
 }
 
-// on "init" you need to initialize your instance
 bool PauseScene::init(std::string const& label, bool resumeAllowed)
 {
-	//////////////////////////////
-	// 1. super init first
-	if ( !Layer::init() )
-	{
+	if (!ButtonScene::init())
 		return false;
-	}
 
-
-	auto background = Sprite::create("background.png");
-	background->setAnchorPoint(Vec2());
-	addChild(background);
 
 	auto labelNode = Sprite::create(label);
-	if (resumeAllowed)
-		labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
-	else
-		labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 350));
+	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, resumeAllowed ? 400 : 350));
 	addChild(labelNode);
 
+
 	if (resumeAllowed)
-	{
-		{
-			auto btn = Sprite::create("button.png");
-			btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 300));
-			btn->setScaleX(1.2f);
-			addChild(btn);
-		}
-
-		resume = Label::createWithTTF("Resume", "fonts/Marker Felt.ttf", 36);
-		resume->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 300));
-		addChild(resume);
-	}
-
-	{
-		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 200));
-		btn->setScaleX(1.2f);
-		addChild(btn);
-	}
-
-	restart = Label::createWithTTF("Restart", "fonts/Marker Felt.ttf", 36);
-	restart->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 200));
-	addChild(restart);
-
-	{
-		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
-		btn->setScaleX(1.2f);
-		addChild(btn);
-	}
-
-	menu = Label::createWithTTF("Main menu", "fonts/Marker Felt.ttf", 36);
-	menu->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
-	addChild(menu);
-
-
-	auto touchListener = EventListenerTouchOneByOne::create();
-	touchListener->setSwallowTouches(true);
-	touchListener->onTouchBegan = [this](Touch* touch, Event* event)
-	{
-		auto location = touch->getLocation();
-
-		if (resume && resume->getBoundingBox().containsPoint(location))
-		{
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
+		AddButton("Resume", 300, [](){
 			Director::getInstance()->popScene();
-			return true;
-		}
+		});
 
-		if (restart->getBoundingBox().containsPoint(location))
-		{
-			CocosDenshion::SimpleAudioEngine::getInstance()->stopAllEffects();
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
-			Director::getInstance()->popScene();
-			auto scene = GameScene::createScene();
-			Director::getInstance()->replaceScene(scene);
-			return true;
-		}
+	AddButton("Restart", 200, [](){
+		Director::getInstance()->popScene();
+		auto scene = GameScene::createScene();
+		Director::getInstance()->replaceScene(scene);
+	});
 
-		if (menu->getBoundingBox().containsPoint(location))
-		{
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
-			Director::getInstance()->popScene();
-			auto scene = MenuScene::createScene();
-			Director::getInstance()->replaceScene(scene);
-			return true;
-		}
-
-		return true;
-	};
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+	AddButton("Main menu", 100, [](){
+		Director::getInstance()->popScene();
+		auto scene = MenuScene::createScene();
+		Director::getInstance()->replaceScene(scene);
+	});
 
 
 	return true;

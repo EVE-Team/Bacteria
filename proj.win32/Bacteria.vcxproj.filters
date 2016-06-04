@@ -51,6 +51,9 @@
     <ClCompile Include="..\Classes\MenuScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ButtonScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -90,6 +93,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ButtonScene.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

@@ -22,15 +22,10 @@ GameScene* GameScene::create()
 		[](GameScene *s){ return s->init(); });
 }
 
-// on "init" you need to initialize your instance
 bool GameScene::init()
 {
-	//////////////////////////////
-	// 1. super init first
 	if ( !Layer::init() )
-	{
 		return false;
-	}
 
 
 	node = Node::create();

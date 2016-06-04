@@ -12,6 +12,7 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
+                   ../../Classes/ButtonScene.cpp \
                    ../../Classes/CircleSprite.cpp \
                    ../../Classes/Enemies.cpp \
                    ../../Classes/Enemy.cpp \
