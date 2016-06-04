@@ -39,38 +39,20 @@ bool MenuScene::init()
 		addChild(label);
 	}
 
-	{
-		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 300));
-		btn->setScaleX(1.2f);
-		addChild(btn);
-	}
 
-	newGame = Label::createWithTTF("New game", "fonts/Marker Felt.ttf", 36);
-	newGame->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 300));
-	addChild(newGame);
+	AddButton("New game", 300, [](){
+		auto scene = GameScene::createScene();
+		Director::getInstance()->replaceScene(scene);
+	});
 
-	{
-		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 200));
-		btn->setScaleX(1.2f);
-		addChild(btn);
-	}
+	AddButton("Scores", 200, [](){
+		auto scene = ScoreScene::createScene();
+		Director::getInstance()->replaceScene(scene);
+	});
 
-	scores = Label::createWithTTF("Scores", "fonts/Marker Felt.ttf", 36);
-	scores->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 200));
-	addChild(scores);
-
-	{
-		auto btn = Sprite::create("button.png");
-		btn->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
-		btn->setScaleX(1.2f);
-		addChild(btn);
-	}
-
-	exit = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 36);
-	exit->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 100));
-	addChild(exit);
+	AddButton("Exit", 100, [](){
+		Director::getInstance()->end();
+	});
 
 
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -79,27 +61,14 @@ bool MenuScene::init()
 	{
 		auto location = touch->getLocation();
 
-		if (newGame->getBoundingBox().containsPoint(location))
+		for (auto button : buttons)
 		{
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
-			auto scene = GameScene::createScene();
-			Director::getInstance()->replaceScene(scene);
-			return true;
-		}
-
-		if (scores->getBoundingBox().containsPoint(location))
-		{
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
-			auto scene = ScoreScene::createScene();
-			Director::getInstance()->replaceScene(scene);
-			return true;
-		}
-
-		if (exit->getBoundingBox().containsPoint(location))
-		{
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
-			Director::getInstance()->end();
-			return true;
+			if (button.bgSprite->getBoundingBox().containsPoint(location))
+			{
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX316.mp3");
+				button.onClick();
+				return true;
+			}
 		}
 
 		return true;
@@ -108,4 +77,18 @@ bool MenuScene::init()
 
 
 	return true;
+}
+
+void MenuScene::AddButton(std::string const& text, float posY, std::function<void()> const& onClick)
+{
+	Sprite *btnBg = Sprite::create("button.png");
+	btnBg->setPosition(Vec2(Utils::GetVisibleSize().width / 2, posY));
+	btnBg->setScaleX(1.2f);
+	addChild(btnBg);
+
+	Label* label = Label::createWithTTF(text, "fonts/Marker Felt.ttf", 36);
+	label->setPosition(Vec2(Utils::GetVisibleSize().width / 2, posY));
+	addChild(label);
+
+	buttons.push_back(ClickableButton(label, btnBg, onClick));
 }
