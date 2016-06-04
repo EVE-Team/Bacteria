@@ -9,6 +9,7 @@ public:
 	static bool MassExchange(CircleSprite *a, CircleSprite *b, float minDonatorRadius);
 	static bool MassExchangeExplicit(CircleSprite *donator, CircleSprite *receiver, float minDonatorRadius);
 
+	virtual ~CircleSprite() = default;
 	float GetRadius() const;
 	void SetRadius(float r);
 	float GetArea() const;
