@@ -32,6 +32,10 @@ const float Utils::planktonAreaMul = 0.05f;
 const float Utils::bacteriaPushForce = 200;
 const float Utils::planktonPushForceMul = -1;
 const float Utils::minBacteriaRadius = 25;
+const float Utils::planktonAddScoreMul = 0.25f;
+const float Utils::planktonDelScoreMul = 0.3f;
+const float Utils::enemyAddScoreMul = 1;
+const float Utils::enemyDelScoreMul = 1.25f;
 
 Utils::PolarVec2 Utils::LinearToPolar(Vec2 lin)
 {

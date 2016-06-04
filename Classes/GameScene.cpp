@@ -102,10 +102,12 @@ void GameScene::EatPlankton()
 	{
 		if ((*it)->Vulnerable(player) && CircleSprite::CenterDistance(*it, player) < (*it)->GetRadius() + player->GetRadius())
 		{
+			float oldArea = (*it)->GetArea();
+
 			if (!CircleSprite::MassExchangeExplicit(*it, player, 5))
 			{
 				player->SetArea(player->GetArea() + (*it)->GetArea());
-				AddScore((*it)->GetArea());
+				AddScore((*it)->GetArea() * Utils::planktonAddScoreMul);
 
 				planktons->removeChild(*it, true);
 				planktons->list.erase(it++);
@@ -113,7 +115,11 @@ void GameScene::EatPlankton()
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3");
 			}
 			else
+			{
+				float gotArea = oldArea - (*it)->GetArea();
+				AddScore(gotArea * Utils::planktonAddScoreMul);
 				++it;
+			}
 		}
 		else
 		{
@@ -153,6 +159,8 @@ void GameScene::EnemyPlayerCollision()
 
 		if (CircleSprite::CenterDistance(player, *it) < player->GetRadius() + (*it)->GetRadius())
 		{
+			float oldArea = (*it)->GetArea();
+
 			if (!CircleSprite::MassExchange(*it, player, Utils::minBacteriaRadius))
 			{
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX312.mp3");
@@ -162,20 +170,36 @@ void GameScene::EnemyPlayerCollision()
 					if (enemies->list.size() == 1)
 					{
 						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX320.mp3");
+						Utils::AddHighScore(score);
 						GameOver("victory.png");
 					}
 
 					player->SetArea(player->GetArea() + (*it)->GetArea());
-					AddScore((*it)->GetArea());
+					AddScore((*it)->GetArea() * Utils::enemyAddScoreMul);
 
 					enemies->removeChild(*it, true);
 					enemies->list.erase(it++);
+
 					enemyKilled = true;
 				}
 				else
 				{
 					CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("GAMEOVER.ogg");
+					DelScore(player->GetArea() * Utils::enemyDelScoreMul);
 					GameOver("lose.png");
+				}
+			}
+			else
+			{
+				if (oldArea > (*it)->GetArea())
+				{
+					float gotArea = oldArea - (*it)->GetArea();
+					AddScore(gotArea * Utils::enemyAddScoreMul);
+				}
+				else if (oldArea < (*it)->GetArea())
+				{
+					float lostArea = (*it)->GetArea() - oldArea;
+					DelScore(lostArea * Utils::enemyDelScoreMul);
 				}
 			}
 		}
@@ -230,14 +254,23 @@ void GameScene::onExit()
 
 void GameScene::GameOver(std::string const& reason)
 {
-	Utils::AddHighScore(score);
 	auto scene = PauseScene::createScene(reason, false);
 	Director::getInstance()->pushScene(scene);
 }
 
 void GameScene::AddScore(float score)
 {
+	assert(score > 0);
 	this->score += score;
+	UpdateInfo();
+}
+
+void GameScene::DelScore(float score)
+{
+	assert(score > 0);
+	this->score -= score;
+	if (this->score < 0)
+		this->score = 0;
 	UpdateInfo();
 }
 
@@ -259,5 +292,8 @@ void GameScene::PushCircleSprite(CircleSprite *sprite, Vec2 const& velocity, flo
 	planktons->list.back()->AddVelocity(velocity * Utils::planktonPushForceMul);
 
 	if (sprite == player)
+	{
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3");
+		DelScore(planktonArea * Utils::planktonDelScoreMul);
+	}
 }

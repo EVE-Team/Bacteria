@@ -29,6 +29,7 @@ public:
 	void EnemyPlayerCollision();
 	void GameOver(std::string const& reason);
 	void AddScore(float score);
+	void DelScore(float score);
 	void UpdateInfo();
 	bool IsAlive(CircleSprite *sprite) const;
 	void PushCircleSprite(CircleSprite *sprite, cocos2d::Vec2 const& velocity, float planktonArea);
