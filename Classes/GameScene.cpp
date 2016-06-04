@@ -118,8 +118,7 @@ void GameScene::EatPlankton()
 				player->SetArea(player->GetArea() + (*it)->GetArea());
 				AddScore((*it)->GetArea() * Utils::planktonAddScoreMul);
 
-				planktons->removeChild(*it, true);
-				planktons->list.erase(it++);
+				planktons->DeletePlankton(it++);
 
 				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3", false, 1.0f, 0.0f, Utils::planktonEatVolume);
 			}
@@ -146,9 +145,7 @@ void GameScene::EatPlankton()
 						enemy->SetArea(enemy->GetArea() + (*it)->GetArea());
 						UpdateInfo();
 
-						planktons->removeChild(*it, true);
-						planktons->list.erase(it++);
-
+						planktons->DeletePlankton(it++);
 						planktonKilled = true;
 					}
 				}
@@ -196,9 +193,7 @@ void GameScene::EnemyPlayerCollision()
 					player->SetArea(player->GetArea() + (*it)->GetArea());
 					AddScore((*it)->GetArea() * Utils::enemyAddScoreMul);
 
-					enemies->removeChild(*it, true);
-					enemies->list.erase(it++);
-
+					enemies->DeleteEnemy(it++);
 					enemyKilled = true;
 				}
 				else
@@ -303,8 +298,7 @@ void GameScene::PushCircleSprite(CircleSprite *sprite, Vec2 const& velocity, flo
 {
 	sprite->AddVelocity(velocity);
 	sprite->SetArea(sprite->GetArea() - planktonArea);
-	planktons->AddPlankton(sprite->getPosition(), planktonArea, sprite);
-	planktons->list.back()->AddVelocity(velocity * Utils::planktonPushForceMul);
+	planktons->AddPlanktonWithVel(sprite->getPosition(), planktonArea, sprite, velocity * Utils::planktonPushForceMul);
 
 	if (sprite == player)
 	{

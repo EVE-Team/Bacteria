@@ -45,3 +45,15 @@ void Planktons::AddPlankton(Vec2 pos, float area, CircleSprite *owner)
 	list.push_back(p);
 	addChild(p);
 }
+
+void Planktons::AddPlanktonWithVel(cocos2d::Vec2 pos, float area, CircleSprite *owner, cocos2d::Vec2 const& vel)
+{
+	AddPlankton(pos, area, owner);
+	list.back()->AddVelocity(vel);
+}
+
+void Planktons::DeletePlankton(std::list<Plankton*>::iterator const& it)
+{
+	removeChild(*it, true);
+	list.erase(it);
+}

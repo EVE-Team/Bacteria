@@ -23,11 +23,9 @@ bool MenuScene::init()
 		return false;
 
 
-	{
-		auto label = Sprite::create("title.png");
-		label->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
-		addChild(label);
-	}
+	auto label = Sprite::create("title.png");
+	label->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
+	addChild(label);
 
 
 	AddButton("New game", 300, [](){

@@ -61,6 +61,8 @@ void CircleSprite::AddVelocity(Vec2 const& vel)
 
 void CircleSprite::Tick(float dt)
 {
+	assert(!fieldSize.equals(Size::ZERO));
+
 	if (vel == Vec2())
 		return;
 

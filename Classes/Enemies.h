@@ -13,6 +13,7 @@ public:
 	bool init(GameScene *gameScene);
 	void Tick(float dt);
 	void AddEnemy(cocos2d::Vec2 const& pos);
+	void DeleteEnemy(std::list<Enemy*>::iterator const& it);
 
 	std::list<Enemy*> list;
 

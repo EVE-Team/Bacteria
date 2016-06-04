@@ -45,3 +45,9 @@ void Enemies::AddEnemy(Vec2 const& pos)
 	list.push_back(p);
 	addChild(p);
 }
+
+void Enemies::DeleteEnemy(std::list<Enemy*>::iterator const& it)
+{
+	removeChild(*it, true);
+	list.erase(it);
+}
