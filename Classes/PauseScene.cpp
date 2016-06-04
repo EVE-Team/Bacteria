@@ -24,15 +24,15 @@ bool PauseScene::init()
 
 
 	auto labelNode = Sprite::create("pause.png");
-	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
+	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 380));
 	addChild(labelNode);
 
 
-	AddButton("Resume", 250, [](){
+	AddButton("Resume", 240, [](){
 		Director::getInstance()->popScene();
 	});
 
-	AddButton("Main menu", 100, [](){
+	AddButton("Main menu", 115, [](){
 		Director::getInstance()->popScene();
 		auto scene = MenuScene::createScene();
 		Director::getInstance()->replaceScene(scene);

@@ -23,11 +23,11 @@ bool EndScene::init()
 
 
 	auto labelNode = Sprite::create("victory.png");
-	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
+	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 310));
 	addChild(labelNode);
 
 
-	AddButton("Main menu", 200, [](){
+	AddButton("Main menu", 110, [](){
 		auto scene = MenuScene::createScene();
 		Director::getInstance()->replaceScene(scene);
 	});

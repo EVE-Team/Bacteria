@@ -25,11 +25,11 @@ bool LoseScene::init(GameProgress const& gameProgress)
 
 
 	auto labelNode = Sprite::create("lose.png");
-	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
+	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 375));
 	addChild(labelNode);
 
 
-	AddButton("Restart", 250, [gameProgress](){
+	AddButton("Restart", 210, [gameProgress](){
 		auto newGameProgress(gameProgress);
 		newGameProgress.score /= 2;
 
@@ -37,7 +37,7 @@ bool LoseScene::init(GameProgress const& gameProgress)
 		Director::getInstance()->replaceScene(scene);
 	});
 
-	AddButton("Main menu", 100, [](){
+	AddButton("Main menu", 85, [](){
 		auto scene = MenuScene::createScene();
 		Director::getInstance()->replaceScene(scene);
 	});
