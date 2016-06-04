@@ -9,9 +9,8 @@ public:
 	static float length(cocos2d::Vec2 p1, cocos2d::Vec2 p2);
 	static float length(cocos2d::Vec2 v);
 	static int Rand(int max);
-	static cocos2d::Vec2 RandVec2();
+	static cocos2d::Vec2 RandVec2(cocos2d::Size fieldSize);
 
-	static const cocos2d::Size fieldSize;
 	static const float planktonAreaMul;
 	static const float bacteriaPushForce;
 	static const float planktonPushForceMul;

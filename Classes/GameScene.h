@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "GameProgress.h"
+#include "GameData.h"
 
 class Player;
 class Planktons;
@@ -33,8 +34,10 @@ public:
 	void UpdateInfo();
 	bool IsAlive(CircleSprite *sprite) const;
 	void PushCircleSprite(CircleSprite *sprite, cocos2d::Vec2 const& velocity, float planktonArea);
+	const GameData& GetGameData() const;
 
 private:
 	GameProgress startProgress;
 	float score;
+	GameData gameData;
 };

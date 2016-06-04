@@ -18,6 +18,8 @@ public:
 	virtual void Tick(float dt);
 	cocos2d::Vec2 GetVelocity() const;
 
+	cocos2d::Size fieldSize;
+
 private:
 	cocos2d::Vec2 vel;
 

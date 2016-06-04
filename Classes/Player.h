@@ -5,5 +5,5 @@
 class Player : public CircleSprite
 {
 public:
-	static Player* create();
+	static Player* create(cocos2d::Size const& fieldSize);
 };

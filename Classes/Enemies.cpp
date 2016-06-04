@@ -1,6 +1,7 @@
 #include "Enemies.h"
 #include "Enemy.h"
 #include "Utils.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -20,9 +21,9 @@ bool Enemies::init(GameScene *gameScene)
 
 	this->gameScene = gameScene;
 
-	for (int i = 0; i < 15; ++i)
+	for (int i = 0; i < gameScene->GetGameData().enemyCount; ++i)
 	{
-		AddEnemy(Utils::RandVec2());
+		AddEnemy(Utils::RandVec2(gameScene->GetGameData().fieldSize));
 	}
 
 	return true;

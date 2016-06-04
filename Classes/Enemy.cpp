@@ -12,7 +12,11 @@ Enemy* Enemy::create(GameScene *gameScene, Texture2D *texture)
 	return Utils::CreateCocosObject<Enemy>(
 		[](){ return new (std::nothrow) Enemy(); },
 		[texture](Enemy *s){ return s->initWithTexture(texture); },
-		[gameScene](Enemy *s){ s->gameScene = gameScene; });
+		[gameScene](Enemy *s) {
+			s->gameScene = gameScene;
+			s->fieldSize = gameScene->GetGameData().fieldSize;
+		}
+	);
 }
 
 void Enemy::Tick(float dt)

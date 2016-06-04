@@ -3,9 +3,10 @@
 
 USING_NS_CC;
 
-Player* Player::create()
+Player* Player::create(cocos2d::Size const& fieldSize)
 {
 	return Utils::CreateCocosObject<Player>(
 		[](){ return new (std::nothrow) Player(); },
-		[](Player *s){ return s->initWithFile("Player.png"); });
+		[](Player *s){ return s->initWithFile("Player.png"); },
+		[&fieldSize](Player *s){ s->fieldSize = fieldSize; });
 }

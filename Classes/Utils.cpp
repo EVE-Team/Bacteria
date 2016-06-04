@@ -22,12 +22,11 @@ int Utils::Rand(int max)
 	return rand() % max;
 }
 
-Vec2 Utils::RandVec2()
+Vec2 Utils::RandVec2(Size fieldSize)
 {
 	return Vec2(Rand(fieldSize.width), Rand(fieldSize.height));
 }
 
-const Size Utils::fieldSize = Size(2000, 2000);
 const float Utils::planktonAreaMul = 0.05f;
 const float Utils::bacteriaPushForce = 200;
 const float Utils::planktonPushForceMul = -1;

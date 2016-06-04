@@ -1,6 +1,7 @@
 #include "Planktons.h"
 #include "Plankton.h"
 #include "Utils.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -20,9 +21,9 @@ bool Planktons::init(GameScene *gameScene)
 
 	this->gameScene = gameScene;
 
-	for (int i = 0; i < 100; ++i)
+	for (int i = 0; i < gameScene->GetGameData().planktonCount; ++i)
 	{
-		AddPlankton(Utils::RandVec2(), 1000, nullptr);
+		AddPlankton(Utils::RandVec2(gameScene->GetGameData().fieldSize), 1000, nullptr);
 	}
 
 	return true;

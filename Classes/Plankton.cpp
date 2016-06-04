@@ -8,7 +8,8 @@ Plankton* Plankton::create(GameScene *gameScene, Texture2D *texture, CircleSprit
 {
 	return Utils::CreateCocosObject<Plankton>(
 		[gameScene, owner](){ return new (std::nothrow) Plankton(gameScene, owner); },
-		[texture](Plankton *s){ return s->initWithTexture(texture); });
+		[texture](Plankton *s){ return s->initWithTexture(texture); },
+		[gameScene](Plankton *s){ s->fieldSize = gameScene->GetGameData().fieldSize; });
 }
 
 Plankton::Plankton(GameScene *gameScene, CircleSprite *owner)

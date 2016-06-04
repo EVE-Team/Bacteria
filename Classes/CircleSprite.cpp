@@ -71,9 +71,9 @@ void CircleSprite::Tick(float dt)
 		setPositionX(GetRadius());
 		vel.x = 0;
 	}
-	else if (Utils::fieldSize.width - getPosition().x < GetRadius())
+	else if (fieldSize.width - getPosition().x < GetRadius())
 	{
-		setPositionX(getPositionX() - (GetRadius() - (Utils::fieldSize.width - getPosition().x)));
+		setPositionX(getPositionX() - (GetRadius() - (fieldSize.width - getPosition().x)));
 		vel.x = 0;
 	}
 
@@ -82,9 +82,9 @@ void CircleSprite::Tick(float dt)
 		setPositionY(GetRadius());
 		vel.y = 0;
 	}
-	else if (Utils::fieldSize.height - getPosition().y < GetRadius())
+	else if (fieldSize.height - getPosition().y < GetRadius())
 	{
-		setPositionY(getPositionY() - (GetRadius() - (Utils::fieldSize.height - getPosition().y)));
+		setPositionY(getPositionY() - (GetRadius() - (fieldSize.height - getPosition().y)));
 		vel.y = 0;
 	}
 

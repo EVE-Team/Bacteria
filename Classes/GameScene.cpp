@@ -32,10 +32,9 @@ bool GameScene::init(GameProgress const& progress)
 		return false;
 
 
-	const GameData gameData = GameData::GetLevelData(progress.level);
-
 	score = progress.score;
 	startProgress = progress;
+	gameData = GameData::GetLevelData(progress.level);
 
 
 	node = Node::create();
@@ -49,7 +48,7 @@ bool GameScene::init(GameProgress const& progress)
 	tp.wrapS = GL_REPEAT;
 	tp.wrapT = GL_REPEAT;
 	background->getTexture()->setTexParameters(tp);
-	background->setTextureRect(Rect(Vec2(), Utils::fieldSize));
+	background->setTextureRect(Rect(Vec2(), gameData.fieldSize));
 	background->setAnchorPoint(Vec2());
 	node->addChild(background);
 
@@ -59,9 +58,9 @@ bool GameScene::init(GameProgress const& progress)
 	enemies = Enemies::create(this);
 	node->addChild(enemies);
 
-	player = Player::create();
+	player = Player::create(gameData.fieldSize);
 	player->SetArea(5000);
-	player->setPosition(Vec2(Utils::fieldSize) / 2);
+	player->setPosition(Vec2(gameData.fieldSize) / 2);
 	node->addChild(player);
 
 	massText = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);
@@ -250,13 +249,13 @@ void GameScene::update(float dt)
 
 		if (camRect.getMinX() < 0)
 			camRect.origin.x = 0;
-		else if (camRect.getMaxX() > Utils::fieldSize.width)
-			camRect.origin.x -= (camRect.getMaxX() - Utils::fieldSize.width);
+		else if (camRect.getMaxX() > gameData.fieldSize.width)
+			camRect.origin.x -= (camRect.getMaxX() - gameData.fieldSize.width);
 
 		if (camRect.getMinY() < 0)
 			camRect.origin.y = 0;
-		else if (camRect.getMaxY() > Utils::fieldSize.height)
-			camRect.origin.y -= (camRect.getMaxY() - Utils::fieldSize.height);
+		else if (camRect.getMaxY() > gameData.fieldSize.height)
+			camRect.origin.y -= (camRect.getMaxY() - gameData.fieldSize.height);
 
 		node->setPosition(camRect.origin * -1);
 	}
@@ -312,4 +311,9 @@ void GameScene::PushCircleSprite(CircleSprite *sprite, Vec2 const& velocity, flo
 		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3", false, 1.0f, 0.0f, Utils::planktonEatVolume);
 		DelScore(planktonArea * Utils::planktonDelScoreMul);
 	}
+}
+
+const GameData& GameScene::GetGameData() const
+{
+	return gameData;
 }
