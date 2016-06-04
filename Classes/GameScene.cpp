@@ -52,15 +52,15 @@ bool GameScene::init(GameProgress const& progress)
 	background->setAnchorPoint(Vec2());
 	node->addChild(background);
 
-	planktons = Planktons::create(this);
-	node->addChild(planktons);
-
-	enemies = Enemies::create(this);
-	node->addChild(enemies);
-
 	player = Player::create(gameData.fieldSize);
 	player->SetArea(5000);
 	player->setPosition(Vec2(gameData.fieldSize) / 2);
+
+	planktons = Planktons::create(this);
+	enemies = Enemies::create(this);
+
+	node->addChild(planktons);
+	node->addChild(enemies);
 	node->addChild(player);
 
 	massText = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);

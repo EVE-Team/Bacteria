@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Utils.h"
 #include "GameScene.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -23,7 +24,7 @@ bool Enemies::init(GameScene *gameScene)
 
 	for (int i = 0; i < gameScene->GetGameData().enemyCount; ++i)
 	{
-		AddEnemy(Utils::RandVec2(gameScene->GetGameData().fieldSize));
+		AddEnemy(Utils::RandVec2WithFilter(gameScene->GetGameData().fieldSize, gameScene->player->getPosition(), 400));
 	}
 
 	return true;

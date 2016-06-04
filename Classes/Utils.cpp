@@ -22,9 +22,19 @@ int Utils::Rand(int max)
 	return rand() % max;
 }
 
-Vec2 Utils::RandVec2(Size fieldSize)
+Vec2 Utils::RandVec2(Size const& fieldSize)
 {
 	return Vec2(Rand(fieldSize.width), Rand(fieldSize.height));
+}
+
+Vec2 Utils::RandVec2WithFilter(Size const& fieldSize, Vec2 const& playerPos, float minDist)
+{
+	for (;;)
+	{
+		auto v = RandVec2(fieldSize);
+		if (length(v - playerPos) > minDist)
+			return v;
+	}
 }
 
 const float Utils::planktonAreaMul = 0.05f;
