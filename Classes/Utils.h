@@ -20,6 +20,7 @@ public:
 	static const float planktonDelScoreMul;
 	static const float enemyAddScoreMul;
 	static const float enemyDelScoreMul;
+	static const float planktonEatVolume;
 
 	struct PolarVec2
 	{

@@ -112,7 +112,7 @@ void GameScene::EatPlankton()
 				planktons->removeChild(*it, true);
 				planktons->list.erase(it++);
 
-				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3");
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3", false, 1.0f, 0.0f, Utils::planktonEatVolume);
 			}
 			else
 			{
@@ -293,7 +293,7 @@ void GameScene::PushCircleSprite(CircleSprite *sprite, Vec2 const& velocity, flo
 
 	if (sprite == player)
 	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("FX318.mp3", false, 1.0f, 0.0f, Utils::planktonEatVolume);
 		DelScore(planktonArea * Utils::planktonDelScoreMul);
 	}
 }
