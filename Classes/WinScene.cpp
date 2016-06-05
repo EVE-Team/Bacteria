@@ -2,6 +2,7 @@
 #include "MenuScene.h"
 #include "GameScene.h"
 #include "Utils.h"
+#include "GameData.h"
 
 USING_NS_CC;
 
@@ -24,12 +25,14 @@ bool WinScene::init(GameProgress const& gameProgress, float newScore)
 		return false;
 
 
-	auto labelNode = Sprite::create("victory.png");
-	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
+	assert(gameProgress.level > 0 && gameProgress.level < GameData::levelCount);
+
+	auto labelNode = Sprite::create("l" + Utils::to_string(gameProgress.level) + "c.png");
+	labelNode->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 375));
 	addChild(labelNode);
 
 
-	AddButton("Next", 250, [gameProgress, newScore](){
+	AddButton("Next", 210, [gameProgress, newScore](){
 		auto newGameProgress(gameProgress);
 		newGameProgress.score = newScore;
 		++newGameProgress.level;
@@ -38,7 +41,7 @@ bool WinScene::init(GameProgress const& gameProgress, float newScore)
 		Director::getInstance()->replaceScene(scene);
 	});
 
-	AddButton("Main menu", 100, [](){
+	AddButton("Main menu", 85, [](){
 		auto scene = MenuScene::createScene();
 		Director::getInstance()->replaceScene(scene);
 	});
