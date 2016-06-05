@@ -6,7 +6,7 @@
 USING_NS_CC;
 
 // on "init" you need to initialize your instance
-bool ButtonScene::init()
+bool ButtonScene::init(std::string const& backgroundPath)
 {
 	//////////////////////////////
 	// 1. super init first
@@ -16,7 +16,7 @@ bool ButtonScene::init()
 	}
 
 
-	auto background = Sprite::create("background.png");
+	auto background = Sprite::create(backgroundPath);
 	background->setAnchorPoint(Vec2());
 	addChild(background);
 

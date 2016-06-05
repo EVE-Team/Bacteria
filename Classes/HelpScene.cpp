@@ -19,7 +19,7 @@ HelpScene* HelpScene::create()
 
 bool HelpScene::init()
 {
-	if (!ButtonScene::init())
+	if (!ButtonScene::init("background_dark.png"))
 		return false;
 
 

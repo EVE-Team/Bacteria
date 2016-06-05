@@ -8,7 +8,7 @@ class ButtonScene : public cocos2d::Layer
 {
 public:
 	virtual ~ButtonScene() = default;
-	virtual bool init() override;
+	bool init(std::string const& backgroundPath = "background.png");
 
 protected:
 	void AddButton(std::string const& text, float posY, std::function<void()> const& onClick);
