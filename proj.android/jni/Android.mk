@@ -26,6 +26,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Planktons.cpp \
                    ../../Classes/Player.cpp \
                    ../../Classes/ScoreScene.cpp \
+                   ../../Classes/ShadowLabel.cpp \
                    ../../Classes/Utils.cpp \
                    ../../Classes/WinScene.cpp
 
