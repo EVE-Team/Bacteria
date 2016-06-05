@@ -8,6 +8,7 @@ class Player;
 class Planktons;
 class Enemies;
 class CircleSprite;
+class ShadowLabel;
 
 class GameScene : public cocos2d::Layer
 {
@@ -23,7 +24,7 @@ public:
 	cocos2d::Sprite *pause;
 	Player *player;
 	Planktons *planktons;
-	cocos2d::Label *massText;
+	ShadowLabel *massText;
 	cocos2d::Node *node;
 	Enemies *enemies;
 

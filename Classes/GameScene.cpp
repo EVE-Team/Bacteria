@@ -11,6 +11,7 @@
 #include "WinScene.h"
 #include "LoseScene.h"
 #include "EndScene.h"
+#include "ShadowLabel.h"
 
 USING_NS_CC;
 
@@ -63,7 +64,7 @@ bool GameScene::init(GameProgress const& progress)
 	node->addChild(enemies);
 	node->addChild(player);
 
-	massText = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);
+	massText = ShadowLabel::createWithTTF("", "fonts/Marker Felt.ttf", 24, Vec2(2, -2), Color3B(255, 255, 255), Color3B(0, 0, 0));
 	massText->setAnchorPoint(Vec2(0, 0.5));
 	massText->setPosition(Vec2(40, Utils::GetVisibleSize().height - 40));
 	UpdateInfo();
