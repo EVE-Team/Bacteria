@@ -19,6 +19,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Enemy.cpp \
                    ../../Classes/GameData.cpp \
                    ../../Classes/GameScene.cpp \
+                   ../../Classes/HelpScene.cpp \
                    ../../Classes/LoseScene.cpp \
                    ../../Classes/MenuScene.cpp \
                    ../../Classes/PauseScene.cpp \

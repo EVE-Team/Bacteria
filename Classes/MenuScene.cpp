@@ -1,6 +1,7 @@
 #include "MenuScene.h"
 #include "GameScene.h"
 #include "ScoreScene.h"
+#include "HelpScene.h"
 #include "Utils.h"
 
 USING_NS_CC;
@@ -24,21 +25,26 @@ bool MenuScene::init()
 
 
 	auto label = Sprite::create("title.png");
-	label->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 400));
+	label->setPosition(Vec2(Utils::GetVisibleSize().width / 2, 415));
 	addChild(label);
 
 
-	AddButton("New game", 300, [](){
+	AddButton("New game", 310, [](){
 		auto scene = GameScene::createScene(GameProgress());
 		Director::getInstance()->replaceScene(scene);
 	});
 
-	AddButton("Scores", 200, [](){
+	AddButton("Scores", 230, [](){
 		auto scene = ScoreScene::createScene();
 		Director::getInstance()->replaceScene(scene);
 	});
 
-	AddButton("Exit", 100, [](){
+	AddButton("Help", 150, [](){
+		auto scene = HelpScene::createScene();
+		Director::getInstance()->replaceScene(scene);
+	});
+
+	AddButton("Exit", 70, [](){
 		Director::getInstance()->end();
 	});
 
