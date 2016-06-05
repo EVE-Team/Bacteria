@@ -1,6 +1,7 @@
 #include "ButtonScene.h"
 #include "Utils.h"
 #include "SimpleAudioEngine.h"
+#include "ShadowLabel.h"
 
 USING_NS_CC;
 
@@ -52,7 +53,7 @@ void ButtonScene::AddButton(std::string const& text, float posY, std::function<v
 	btnBg->setScaleX(1.2f);
 	addChild(btnBg);
 
-	Label* label = Label::createWithTTF(text, "fonts/Marker Felt.ttf", 36);
+	ShadowLabel* label = ShadowLabel::createWithTTF(text, "fonts/Marker Felt.ttf", 36, Vec2(2, -2), Color3B(255, 255, 255), Color3B(0, 0, 0));
 	label->setPosition(Vec2(Utils::GetVisibleSize().width / 2, posY));
 	addChild(label);
 

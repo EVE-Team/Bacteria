@@ -1,6 +1,7 @@
 #include "ScoreScene.h"
 #include "MenuScene.h"
 #include "Utils.h"
+#include "ShadowLabel.h"
 
 USING_NS_CC;
 
@@ -34,7 +35,7 @@ bool ScoreScene::init()
 		scoreText += Utils::to_string(i + 1) + ": " + Utils::to_string(scoreVector[i]) + "\n";
 	}
 
-	auto scores = Label::createWithTTF(scoreText, "fonts/Marker Felt.ttf", 36);
+	auto scores = ShadowLabel::createWithTTF(scoreText, "fonts/Marker Felt.ttf", 36, Vec2(2, -2), Color3B(255, 255, 255), Color3B(0, 0, 0));
 	scores->setPosition(Vec2(Utils::GetVisibleSize().width / 2, Utils::GetVisibleSize().height / 2 + 25));
 	addChild(scores);
 

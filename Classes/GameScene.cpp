@@ -67,8 +67,14 @@ bool GameScene::init(GameProgress const& progress)
 	massText = ShadowLabel::createWithTTF("", "fonts/Marker Felt.ttf", 24, Vec2(2, -2), Color3B(255, 255, 255), Color3B(0, 0, 0));
 	massText->setAnchorPoint(Vec2(0, 0.5));
 	massText->setPosition(Vec2(40, Utils::GetVisibleSize().height - 40));
+
+	scoreText = ShadowLabel::createWithTTF("", "fonts/Marker Felt.ttf", 24, Vec2(2, -2), Color3B(255, 255, 255), Color3B(0, 0, 0));
+	scoreText->setAnchorPoint(Vec2(0, 0.5));
+	scoreText->setPosition(Vec2(240, Utils::GetVisibleSize().height - 40));
+
 	UpdateInfo();
 	addChild(massText);
+	addChild(scoreText);
 
 	pause = Sprite::create("button_black_pause.png");
 	pause->setPosition(Vec2(Utils::GetVisibleSize()) - Vec2(40, 40));
@@ -287,7 +293,8 @@ void GameScene::DelScore(float score)
 
 void GameScene::UpdateInfo()
 {
-	massText->setString("Mass: " + Utils::to_string(player->GetArea()) + "  Score: " + Utils::to_string(score));
+	massText->setString("Mass: " + Utils::to_string(player->GetArea()));
+	scoreText->setString("Score: " + Utils::to_string(score));
 }
 
 bool GameScene::IsAlive(CircleSprite *sprite) const

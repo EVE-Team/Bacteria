@@ -2,6 +2,8 @@
 
 #include "cocos2d.h"
 
+class ShadowLabel;
+
 class ButtonScene : public cocos2d::Layer
 {
 public:
@@ -14,11 +16,11 @@ protected:
 private:
 	struct ClickableButton
 	{
-		cocos2d::Label *label;
+		ShadowLabel *label;
 		cocos2d::Sprite *bgSprite;
 		std::function<void()> onClick;
 
-		ClickableButton(cocos2d::Label *label, cocos2d::Sprite *bgSprite, std::function<void()> const& onClick)
+		ClickableButton(ShadowLabel *label, cocos2d::Sprite *bgSprite, std::function<void()> const& onClick)
 			: label(label)
 			, bgSprite(bgSprite)
 			, onClick(onClick)

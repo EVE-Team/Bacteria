@@ -25,6 +25,7 @@ public:
 	Player *player;
 	Planktons *planktons;
 	ShadowLabel *massText;
+	ShadowLabel *scoreText;
 	cocos2d::Node *node;
 	Enemies *enemies;
 
