@@ -1,0 +1,2 @@
+cocos new -l cpp -p com.se31.bacteria Bacteria
+cocos run -p android -m release
